@@ -154,87 +154,177 @@ nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;backg
 .lang-chip.amber:hover .lang-chip-badge{box-shadow:0 0 10px rgba(255,176,32,0.55);}
 
 /* HERO RIGHT — photo card */
-.hero-right{position:relative;z-index:2;}
+.hero-right{position:relative;z-index:2;perspective:1200px;}
+.hero-right::before{content:"";position:absolute;inset:-70px;pointer-events:none;z-index:0;opacity:0.3;background:radial-gradient(circle at 50% 40%,rgba(124,92,252,0.14),transparent 60%);filter:blur(44px);}
+@media (prefers-reduced-motion:no-preference){.hero-right::before{animation:heroAmbientDrift 14s ease-in-out infinite;}}
+@keyframes heroAmbientDrift{0%,100%{opacity:0.26;transform:translate(0,0);}50%{opacity:0.4;transform:translate(-10px,8px);}}
 .hero-card{
   background:var(--surface);border:1px solid var(--border2);
-  border-radius:24px;overflow:hidden;position:relative;
+  border-radius:24px;overflow:hidden;position:relative;z-index:1;
+  opacity:0;transform:translateY(20px) scale(0.985);filter:blur(6px);
+  transform-style:preserve-3d;will-change:transform;
 }
+@media (prefers-reduced-motion:no-preference){
+  .hero-card{transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),filter 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+  .hero-card.tilt-ready{transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),filter 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.15s ease-out;}
+}
+.hero-card.in{opacity:1;filter:blur(0);transform:translateY(0) scale(1);}
+@media (prefers-reduced-motion:reduce){.hero-card{opacity:1;transform:none;filter:none;}}
+/* Cursor-responsive glass light — soft radial glow following pointer, behind content */
+.hero-card::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:0;
+  background:radial-gradient(circle 240px at var(--mx,50%) var(--my,50%),rgba(124,92,252,0.16),rgba(0,212,255,0.08) 45%,transparent 72%);
+  transition:opacity 0.5s ease;}
+.hero-card.glass-light-on::after{opacity:1;}
+@media (prefers-reduced-motion:reduce){.hero-card::after{display:none;}}
 /* Photo sits at top — small & crisp */
 .hero-graphic-wrap{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:2.6rem 2rem 0;background:var(--surface);
+  padding:2.6rem 2rem 0;background:var(--surface);position:relative;z-index:1;
 }
-.chart-label{align-self:flex-start;font-size:0.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);margin-bottom:0.75rem;display:flex;align-items:center;gap:6px;}
-.chart-label::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0;}
+@media (prefers-reduced-motion:no-preference){.hero-graphic-wrap{transition:transform 0.2s ease-out;}}
+.chart-label{align-self:flex-start;font-size:0.62rem;font-weight:700;text-transform:uppercase;color:var(--muted2);margin-bottom:0.75rem;display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(8px);letter-spacing:3px;}
+.chart-label::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0;opacity:0;}
+@media (prefers-reduced-motion:no-preference){
+  .chart-label{transition:opacity 0.5s ease 0.1s,transform 0.5s ease 0.1s,letter-spacing 0.6s ease 0.15s;}
+  .chart-label::before{transition:opacity 0.3s ease;}
+}
+.chart-label.in{opacity:1;transform:translateY(0);letter-spacing:1.5px;}
+.chart-label.in::before{opacity:1;}
+@media (prefers-reduced-motion:reduce){.chart-label{opacity:1;transform:none;letter-spacing:1.5px;} .chart-label::before{opacity:1;}}
 
-/* HERO CHART ANIMATION — JS-driven repeat, viewport-aware, respects prefers-reduced-motion */
+/* HERO CHART ANIMATION — driven by master hero sequence, respects prefers-reduced-motion */
 @media (prefers-reduced-motion: no-preference){
   .chart-bar{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);}
-  .chart-bar.chart-anim-play{animation:chartBarGrow 0.4s cubic-bezier(0.22,1,0.36,1) forwards;}
+  .chart-bar.chart-anim-play{animation:chartBarGrow 0.35s cubic-bezier(0.22,1,0.36,1) forwards;}
   .chart-bar.chart-anim-play:nth-of-type(1){animation-delay:0s;}
-  .chart-bar.chart-anim-play:nth-of-type(2){animation-delay:0.08s;}
-  .chart-bar.chart-anim-play:nth-of-type(3){animation-delay:0.16s;}
-  .chart-bar.chart-anim-play:nth-of-type(4){animation-delay:0.24s;}
-  .chart-bar.chart-anim-play:nth-of-type(5){animation-delay:0.32s;}
+  .chart-bar.chart-anim-play:nth-of-type(2){animation-delay:0.06s;}
+  .chart-bar.chart-anim-play:nth-of-type(3){animation-delay:0.12s;}
+  .chart-bar.chart-anim-play:nth-of-type(4){animation-delay:0.18s;}
+  .chart-bar.chart-anim-play:nth-of-type(5){animation-delay:0.24s;}
   .chart-line{stroke-dasharray:220;stroke-dashoffset:220;}
-  .chart-line.chart-anim-play{animation:chartLineDraw 0.45s cubic-bezier(0.4,0,0.2,1) 0.75s forwards;}
+  .chart-line.chart-anim-play{animation:chartLineDraw 0.4s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;}
   .chart-dot{transform-box:fill-box;transform-origin:center;opacity:0;}
-  .chart-dot.chart-anim-play{animation:chartDotPop 0.2s ease-out forwards;}
-  .chart-dot.chart-anim-play:nth-of-type(1){animation-delay:0.8s;}
-  .chart-dot.chart-anim-play:nth-of-type(2){animation-delay:0.93s;}
-  .chart-dot.chart-anim-play:nth-of-type(3){animation-delay:1.06s;}
-  .chart-dot.chart-anim-play:nth-of-type(4){animation-delay:1.19s;}
+  .chart-dot.chart-anim-play{animation:chartDotPop 0.18s ease-out forwards;}
+  .chart-dot.chart-anim-play:nth-of-type(1){animation-delay:0.55s;}
+  .chart-dot.chart-anim-play:nth-of-type(2){animation-delay:0.66s;}
+  .chart-dot.chart-anim-play:nth-of-type(3){animation-delay:0.77s;}
+  .chart-dot.chart-anim-play:nth-of-type(4){animation-delay:0.88s;}
   .chart-final-dot{transform-box:fill-box;transform-origin:center;opacity:0;}
-  .chart-final-dot.chart-anim-play{animation:chartDotPop 0.2s ease-out 1.25s forwards;}
+  .chart-final-dot.chart-anim-play{animation:chartDotPop 0.2s ease-out 0.95s forwards;}
   .chart-glow-ring{transform-box:fill-box;transform-origin:center;opacity:0;}
-  .chart-glow-ring.chart-anim-play{animation:chartGlowPulse 0.6s ease-out 1.35s forwards;}
+  .chart-glow-ring.chart-anim-play{animation:chartGlowPulse 0.55s ease-out 1.05s forwards;}
+  /* Light traveling upward through each bar as it finishes growing */
+  .bar-light{opacity:0;transform-box:fill-box;transform-origin:center;}
+  .bar-light.chart-anim-play{animation:barLightSweep 0.55s ease-out forwards;}
+  .bar-light.chart-anim-play:nth-of-type(1){animation-delay:0.32s;}
+  .bar-light.chart-anim-play:nth-of-type(2){animation-delay:0.38s;}
+  .bar-light.chart-anim-play:nth-of-type(3){animation-delay:0.44s;}
+  .bar-light.chart-anim-play:nth-of-type(4){animation-delay:0.5s;}
+  .bar-light.chart-anim-play:nth-of-type(5){animation-delay:0.56s;}
+  /* Soft leading-edge glow traveling with the drawing line */
+  .line-glow{opacity:0;}
+  .line-glow.chart-anim-play{animation:lineGlowTravel 0.4s linear 0.5s forwards;}
+  /* Extremely subtle breathing glow around the final point, after its one-time halo */
+  .chart-final-breathe{opacity:0;transform-box:fill-box;transform-origin:center;}
+  .chart-final-breathe.chart-anim-play{animation:finalBreatheIn 0.3s ease 1.6s forwards,finalBreathe 3.5s ease-in-out 1.9s infinite;}
 }
 @keyframes chartBarGrow{from{transform:scaleY(0);}to{transform:scaleY(1);}}
 @keyframes chartLineDraw{to{stroke-dashoffset:0;}}
 @keyframes chartDotPop{from{opacity:0;transform:scale(0.4);}to{opacity:1;transform:scale(1);}}
 @keyframes chartGlowPulse{0%{opacity:0;transform:scale(0.6);}45%{opacity:0.9;}100%{opacity:0;transform:scale(1.9);}}
+@keyframes barLightSweep{0%{transform:translateY(0);opacity:0;}15%{opacity:0.85;}85%{opacity:0.5;}100%{transform:translateY(-210px);opacity:0;}}
+@keyframes lineGlowTravel{
+  0%{cx:48px;cy:150px;opacity:0;}
+  6%{opacity:1;}
+  25%{cx:93px;cy:120px;}
+  50%{cx:138px;cy:95px;}
+  75%{cx:183px;cy:65px;}
+  94%{opacity:1;}
+  100%{cx:228px;cy:35px;opacity:0;}
+}
+@keyframes finalBreatheIn{to{opacity:0.22;}}
+@keyframes finalBreathe{0%,100%{opacity:0.14;transform:scale(1);}50%{opacity:0.32;transform:scale(1.18);}}
+@media (prefers-reduced-motion: reduce){.bar-light,.line-glow,.chart-final-breathe{display:none;}}
 
-.hero-card-body{padding:1.5rem;}
-.hco-name{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:2px;}
-.hco-role{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.85rem;}
-.hco-badges{display:flex;gap:6px;flex-wrap:wrap;}
-.hco-badge{font-size:0.62rem;font-weight:700;letter-spacing:0.5px;padding:4px 9px 4px 7px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;}
-.hco-badge svg{width:13px;height:13px;flex-shrink:0;}
+.hero-card-body{padding:1.5rem;position:relative;z-index:1;}
+.hco-name-mask{overflow:hidden;}
+.hco-name{display:inline-block;font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:2px;transform:translateY(100%);opacity:0;}
+@media (prefers-reduced-motion:no-preference){.hco-name{transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease;}}
+.hco-name-mask.in .hco-name{transform:translateY(0);opacity:1;}
+@media (prefers-reduced-motion:reduce){.hco-name{transform:none;opacity:1;}}
+.hco-role{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:0.85rem;opacity:0;transform:translateY(6px);}
+@media (prefers-reduced-motion:no-preference){.hco-role{transition:opacity 0.5s ease,transform 0.5s ease;}}
+.hco-role.in{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion:reduce){.hco-role{opacity:1;transform:none;}}
+.hco-badges{display:flex;gap:5px;flex-wrap:wrap;}
+.hco-badge{font-size:0.57rem;font-weight:700;letter-spacing:0.2px;padding:3px 6px 3px 5px;border-radius:6px;display:inline-flex;align-items:center;gap:3px;cursor:default;white-space:nowrap;
+  opacity:0;transform:translateY(8px) scale(0.96);}
+@media (prefers-reduced-motion:no-preference){.hco-badge{transition:opacity 0.4s ease,transform 0.4s cubic-bezier(0.22,1,0.36,1),border-color 0.25s ease,box-shadow 0.25s ease;}}
+.hco-badge.in{opacity:1;transform:translateY(0) scale(1);}
+@media (prefers-reduced-motion:reduce){.hco-badge{opacity:1;transform:none;}}
+.hco-badge:hover{transform:translateY(-2px) scale(1);}
+.hco-badge svg{width:11px;height:11px;flex-shrink:0;}
 .badge-lime{background:rgba(200,255,0,0.15);color:var(--lime);border:1px solid rgba(200,255,0,0.2);}
+.badge-lime:hover{border-color:rgba(200,255,0,0.5);box-shadow:0 4px 14px rgba(200,255,0,0.16);}
 .badge-violet{background:rgba(124,92,252,0.15);color:#a78bfa;border:1px solid rgba(124,92,252,0.2);}
+.badge-violet:hover{border-color:rgba(124,92,252,0.55);box-shadow:0 4px 14px rgba(124,92,252,0.2);}
 .badge-cyan{background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);}
+.badge-cyan:hover{border-color:rgba(0,212,255,0.55);box-shadow:0 4px 14px rgba(0,212,255,0.2);}
 /* Mini stats under photo */
 .hero-mini-stats{
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:var(--border);
   border-top:1px solid var(--border);margin-top:1rem;
+  position:relative;z-index:1;
 }
-.hms{background:var(--surface2);padding:0.9rem 0.5rem;text-align:center;}
+.hms{background:var(--surface2);padding:0.9rem 0.5rem;text-align:center;cursor:default;}
+@media (prefers-reduced-motion:no-preference){.hms{transition:background 0.25s ease,transform 0.25s ease;}}
+.hms:hover{background:var(--surface);transform:translateY(-2px);}
 .hms-num{font-size:1.1rem;font-weight:900;color:var(--lime);line-height:1;margin-bottom:2px;}
-.hms-label{font-size:0.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;}
+.hms-label{font-size:0.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;opacity:0;}
+@media (prefers-reduced-motion:no-preference){.hms-label{transition:opacity 0.4s ease;}}
+.hms-label.in{opacity:1;}
+@media (prefers-reduced-motion:reduce){.hms-label{opacity:1;}}
 
-/* Floating stats */
-.fstat{position:absolute;background:rgba(20,20,31,0.9);border:1px solid var(--border2);border-radius:14px;padding:0.8rem 1.1rem;backdrop-filter:blur(20px);z-index:3;}
+/* Floating stats — outer handles entrance opacity + parallax transform; inner handles pop+float animation */
+.fstat{position:absolute;z-index:3;opacity:0;will-change:transform;}
+@media (prefers-reduced-motion:no-preference){.fstat{transition:opacity 0.5s ease,transform 0.15s ease-out;}}
+.fstat.in{opacity:1;}
+@media (prefers-reduced-motion: reduce){.fstat{opacity:1;}}
+.fstat-inner{background:rgba(20,20,31,0.9);border:1px solid var(--border2);border-radius:14px;backdrop-filter:blur(20px);transition:border-color 0.25s ease,box-shadow 0.25s ease;}
+.fstat-hover-lift{padding:0.8rem 1.1rem;}
+@media (prefers-reduced-motion:no-preference){.fstat-hover-lift{transition:transform 0.25s cubic-bezier(0.22,1,0.36,1);}}
+.fstat:hover .fstat-hover-lift{transform:translateY(-2.5px);}
+.fs1:hover .fstat-inner{border-color:rgba(255,176,32,0.4);box-shadow:0 8px 20px rgba(255,176,32,0.14);}
+.fs2:hover .fstat-inner{border-color:rgba(200,255,0,0.4);box-shadow:0 8px 20px rgba(200,255,0,0.16);}
 @keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes fstatIn{0%{opacity:0;transform:translateY(14px) scale(0.9);}100%{opacity:1;transform:translateY(0) scale(1);}}
 .fstat-val{font-size:1.1rem;font-weight:900;color:var(--lime);line-height:1;}
+@media (prefers-reduced-motion:no-preference){.fstat-val{transition:transform 0.2s ease;}}
+.fstat:hover .fstat-val{transform:translateY(-1px);}
 .fstat-label{font-size:0.62rem;color:var(--muted2);margin-top:2px;}
 .fs1{top:-20px;right:-20px;}
 .fs2{top:-16px;left:-30px;}
+@media (prefers-reduced-motion:no-preference){.fs1{transition-delay:0.15s;} .fs2{transition-delay:0.25s;}}
 @media (prefers-reduced-motion: no-preference){
-  .fstat{animation:fstatIn 0.7s cubic-bezier(0.22,1,0.36,1) both,floatUp 4s ease-in-out infinite;}
-  .fs1{animation-delay:0s,0.7s;}
-  .fs2{animation-delay:0.15s,2.7s;}
+  .fs1.in .fstat-inner{animation:fstatIn 0.7s cubic-bezier(0.22,1,0.36,1) both,floatUp 4s ease-in-out 0.7s infinite;}
+  .fs2.in .fstat-inner{animation:fstatIn 0.7s cubic-bezier(0.22,1,0.36,1) both,floatUp 4s ease-in-out 2.7s infinite;}
 }
-@media (prefers-reduced-motion: reduce){.fstat{opacity:1;}}
-/* Rating card — visible star + soft pulse glow */
+/* Rating card — visible star + one-time settle glow (no endless pulsing) */
 .fstat-rating{display:flex;align-items:center;gap:0.65rem;}
-.fstat-star-wrap{position:relative;width:34px;height:34px;border-radius:10px;background:rgba(255,176,32,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fstat-star-wrap{position:relative;width:34px;height:34px;border-radius:10px;background:rgba(255,176,32,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
 .fstat-star{position:relative;width:19px;height:19px;color:var(--amber);z-index:1;}
-@media (prefers-reduced-motion: no-preference){
-  .fstat-star-wrap::after{content:"";position:absolute;inset:0;border-radius:10px;background:rgba(255,176,32,0.4);filter:blur(7px);animation:starPulse 2.4s ease-in-out infinite;}
+@media (prefers-reduced-motion:no-preference){.fstat-star{transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}}
+.fstat-star-wrap::after{content:"";position:absolute;inset:0;border-radius:10px;background:rgba(255,176,32,0.4);filter:blur(7px);opacity:0.3;}
+@media (prefers-reduced-motion:no-preference){
+  .fstat-star-wrap.pulse-once::after{animation:starSettlePulse 0.9s ease-out;}
+  .fstat-star-wrap.pulse-once .fstat-star{animation:starSettleScale 0.5s cubic-bezier(0.34,1.56,0.64,1);}
 }
-@keyframes starPulse{0%,100%{opacity:0.35;transform:scale(0.88);}50%{opacity:0.9;transform:scale(1.18);}}
+@keyframes starSettlePulse{0%{opacity:0.3;}35%{opacity:1;}100%{opacity:0.3;}}
+@keyframes starSettleScale{0%{transform:scale(1);}40%{transform:scale(1.25);}100%{transform:scale(1);}}
+.fstat-star-wrap::before{content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,0.55) 50%,transparent);transform:skewX(-15deg);pointer-events:none;opacity:0;z-index:2;}
+@media (prefers-reduced-motion:no-preference){.fs1:hover .fstat-star-wrap::before{animation:starHoverSweep 0.6s ease-out;}}
+@keyframes starHoverSweep{0%{transform:translateX(0) skewX(-15deg);opacity:0.9;}100%{transform:translateX(290%) skewX(-15deg);opacity:0;}}
 .fstat-text{display:flex;flex-direction:column;}
 
 /* TICKER */
@@ -268,11 +358,6 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .expertise-desc{font-size:0.85rem;color:var(--muted2);line-height:1.7;font-weight:400;margin-bottom:1.25rem;}
 .expertise-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
 .bc-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted2);font-size:0.72rem;font-weight:600;padding:5px 11px;border-radius:8px;letter-spacing:0.2px;}
-.expertise-more{margin-top:0.85rem;}
-.expertise-more summary{cursor:pointer;font-size:0.75rem;font-weight:700;color:var(--violet);list-style:none;display:inline-flex;align-items:center;gap:6px;}
-.expertise-more summary::before{content:"▸";transition:transform 0.2s;}
-.expertise-more[open] summary::before{transform:rotate(90deg);}
-.expertise-more summary::-webkit-details-marker{display:none;}
 
 /* TOOLS (About section chips) */
 .tools-wrap{display:flex;flex-wrap:wrap;gap:0.75rem;}
@@ -633,6 +718,10 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .reviews-section{background:var(--bg);}
 .credibility-line{font-size:0.72rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--lime);margin-bottom:0.6rem;}
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.reviews-extra-wrap{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows 0.6s cubic-bezier(0.22,1,0.36,1),opacity 0.5s ease;}
+.reviews-extra-wrap.expanded{grid-template-rows:1fr;opacity:1;}
+.reviews-extra-wrap>.reviews-grid{overflow:hidden;min-height:0;}
+@media (prefers-reduced-motion:reduce){.reviews-extra-wrap{transition:none;}}
 .review-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.8rem;transition:all 0.25s;position:relative;overflow:hidden;}
 .review-card::before{content:'"';position:absolute;top:-5px;right:1.2rem;font-size:5rem;font-weight:900;color:var(--violet);opacity:0.15;line-height:1;font-family:"Instrument Serif",serif;font-style:italic;}
 .review-card:hover{border-color:var(--border2);}
@@ -651,13 +740,24 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .cta-section .s-title{margin:0 auto 1rem;}
 .cta-section .s-sub{margin:0 auto 3rem;}
 .contact-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;max-width:1000px;margin:0 auto 3rem;}
-.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:all 0.2s;}
-.contact-card:hover{border-color:var(--violet);transform:translateY(-2px);}
-.contact-card a{text-decoration:none;}
-.cc-icon{width:34px;height:34px;margin:0 auto 0.6rem;display:flex;align-items:center;justify-content:center;color:var(--muted2);}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-decoration:none;display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.3s ease,box-shadow 0.3s ease;}
+.contact-card:hover{transform:translateY(-5px) scale(1.015);}
+.contact-card:active{transform:translateY(-2px) scale(0.98);}
+.contact-card:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;}
+.cc-icon{width:34px;height:34px;margin:0 auto 0.6rem;display:flex;align-items:center;justify-content:center;color:var(--muted2);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),color 0.3s ease;}
+.contact-card:hover .cc-icon{transform:translateY(-3px) scale(1.08);}
 .cc-icon svg{width:20px;height:20px;}
 .cc-label{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
-.cc-val{font-size:0.78rem;font-weight:600;color:var(--text);word-break:break-all;}
+.cc-val{font-size:0.78rem;font-weight:600;color:var(--text);word-break:break-all;transition:color 0.3s ease;}
+.cc-val-email{font-size:0.66rem;letter-spacing:-0.2px;white-space:nowrap;word-break:normal;}
+.contact-card.cc-violet:hover{border-color:rgba(124,92,252,0.5);box-shadow:0 10px 26px rgba(124,92,252,0.18);}
+.contact-card.cc-violet:hover .cc-icon{color:#a78bfa;}
+.contact-card.cc-cyan:hover{border-color:rgba(0,212,255,0.5);box-shadow:0 10px 26px rgba(0,212,255,0.18);}
+.contact-card.cc-cyan:hover .cc-icon{color:var(--cyan);}
+.contact-card.cc-green:hover{border-color:rgba(37,211,102,0.5);box-shadow:0 10px 26px rgba(37,211,102,0.16);}
+.contact-card.cc-green:hover .cc-icon{color:#25d366;}
+.contact-card.cc-linkedin:hover{border-color:rgba(10,102,194,0.5);box-shadow:0 10px 26px rgba(10,102,194,0.18);}
+.contact-card:hover .cc-val{color:#fff;}
 .cta-btns{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;}
 
 /* CONTACT PATHS — career + freelance */
@@ -680,6 +780,7 @@ footer a:hover{color:var(--lime);}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1),transform 0.7s cubic-bezier(0.22,1,0.36,1),filter 0.7s cubic-bezier(0.22,1,0.36,1);}
+.reveal-sm{transform:translateY(10px);transition:opacity 0.5s ease,transform 0.5s cubic-bezier(0.22,1,0.36,1);}
 .reveal.in{opacity:1;transform:none;}
 .reveal-blur{filter:blur(10px);}
 .reveal-blur.in{filter:blur(0);}
@@ -757,7 +858,7 @@ footer a:hover{color:var(--lime);}
   <div class="orb orb3"></div>
 
   <div class="hero-left">
-    <div class="hero-status"><span class="status-dot"></span> Open to Work &mdash; Dubai, UAE</div>
+    <div class="hero-status"><span class="status-dot"></span> Open to Opportunities &mdash; Dubai, UAE</div>
     <h1 class="hero-heading">
       <span class="name">Awais Shahid</span>
       <span class="tagline">Sales &amp; Marketing<span class="hero-tagline-sep">|</span>Business Development<span class="hero-tagline-sep">|</span>Social Media &amp; Digital Growth</span>
@@ -780,16 +881,26 @@ footer a:hover{color:var(--lime);}
   </div>
 
   <div class="hero-right">
-    <div class="fstat fs1">
-      <div class="fstat-rating">
-        <div class="fstat-star-wrap"><svg class="fstat-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.1 6.6L12 17.9l-5.8 3.1 1.1-6.6L2.5 9.5l6.6-.9L12 2.5z"/></svg></div>
-        <div class="fstat-text"><div class="fstat-val">4.7</div><div class="fstat-label">Client Rated</div></div>
+    <div class="fstat fs1" id="fstatRating">
+      <div class="fstat-inner">
+        <div class="fstat-hover-lift">
+          <div class="fstat-rating">
+            <div class="fstat-star-wrap" id="fstatStarWrap"><svg class="fstat-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.1 6.6L12 17.9l-5.8 3.1 1.1-6.6L2.5 9.5l6.6-.9L12 2.5z"/></svg></div>
+            <div class="fstat-text"><div class="fstat-val" data-count="4.7" data-decimals="1"><span class="count-val">0.0</span></div><div class="fstat-label">Client Rated</div></div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="fstat fs2"><div class="fstat-val">12M+</div><div class="fstat-label">Digital &amp; Social Reach</div></div>
-    <div class="hero-card">
+    <div class="fstat fs2" id="fstatReach">
+      <div class="fstat-inner">
+        <div class="fstat-hover-lift">
+          <div class="fstat-val" data-count="12" data-suffix="M+"><span class="count-val">0</span><span class="count-suffix">M+</span></div><div class="fstat-label">Digital &amp; Social Reach</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card" id="heroCard">
       <div class="hero-graphic-wrap">
-        <div class="chart-label">Growth Across Markets</div>
+        <div class="chart-label" id="chartLabel">Growth Across Markets</div>
         <svg viewBox="0 0 300 200" style="width:100%;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0">
@@ -800,6 +911,19 @@ footer a:hover{color:var(--lime);}
               <stop offset="0%" stop-color="#00d4ff"/>
               <stop offset="100%" stop-color="#c8ff00"/>
             </linearGradient>
+            <linearGradient id="lightBandGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#eaffb0" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="softBlur" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="2.5"/>
+            </filter>
+            <clipPath id="barClip1"><rect x="35" y="120" width="26" height="50" rx="4"/></clipPath>
+            <clipPath id="barClip2"><rect x="80" y="95" width="26" height="75" rx="4"/></clipPath>
+            <clipPath id="barClip3"><rect x="125" y="70" width="26" height="100" rx="4"/></clipPath>
+            <clipPath id="barClip4"><rect x="170" y="45" width="26" height="125" rx="4"/></clipPath>
+            <clipPath id="barClip5"><rect x="215" y="20" width="26" height="150" rx="4"/></clipPath>
           </defs>
           <line x1="20" y1="170" x2="280" y2="170" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
           <line x1="20" y1="130" x2="280" y2="130" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
@@ -810,28 +934,35 @@ footer a:hover{color:var(--lime);}
           <rect class="chart-bar" x="125" y="70" width="26" height="100" rx="4" fill="url(#barGrad)"/>
           <rect class="chart-bar" x="170" y="45" width="26" height="125" rx="4" fill="url(#barGrad)"/>
           <rect class="chart-bar" x="215" y="20" width="26" height="150" rx="4" fill="url(#barGrad)"/>
+          <g clip-path="url(#barClip1)"><rect class="bar-light" x="35" y="150" width="26" height="40" fill="url(#lightBandGrad)"/></g>
+          <g clip-path="url(#barClip2)"><rect class="bar-light" x="80" y="150" width="26" height="40" fill="url(#lightBandGrad)"/></g>
+          <g clip-path="url(#barClip3)"><rect class="bar-light" x="125" y="150" width="26" height="40" fill="url(#lightBandGrad)"/></g>
+          <g clip-path="url(#barClip4)"><rect class="bar-light" x="170" y="150" width="26" height="40" fill="url(#lightBandGrad)"/></g>
+          <g clip-path="url(#barClip5)"><rect class="bar-light" x="215" y="150" width="26" height="40" fill="url(#lightBandGrad)"/></g>
           <polyline class="chart-line" points="48,150 93,120 138,95 183,65 228,35" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle class="line-glow" cx="48" cy="150" r="5" fill="#bfffef" filter="url(#softBlur)"/>
           <circle class="chart-dot" cx="48" cy="150" r="4" fill="#00d4ff"/>
           <circle class="chart-dot" cx="93" cy="120" r="4" fill="#00d4ff"/>
           <circle class="chart-dot" cx="138" cy="95" r="4" fill="#00d4ff"/>
           <circle class="chart-dot" cx="183" cy="65" r="4" fill="#00d4ff"/>
+          <circle class="chart-final-breathe" cx="228" cy="35" r="8" fill="none" stroke="#c8ff00" stroke-width="1"/>
           <circle class="chart-final-dot" cx="228" cy="35" r="6" fill="#c8ff00"/>
           <circle class="chart-glow-ring" cx="228" cy="35" r="10" fill="none" stroke="#c8ff00" stroke-width="1.5" opacity="0.5"/>
         </svg>
       </div>
       <div class="hero-card-body">
-        <div class="hco-name">Awais Shahid</div>
-        <div class="hco-role">Sales, Marketing &amp; Business Development &middot; Dubai, UAE</div>
+        <div class="hco-name-mask" id="hcoNameMask"><span class="hco-name">Awais Shahid</span></div>
+        <div class="hco-role" id="hcoRole">Sales, Marketing &amp; Business Development &middot; Dubai, UAE</div>
         <div class="hco-badges">
-          <span class="hco-badge badge-lime"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h7l-1 8 11-14h-7l0-6z"/></svg> Open to Work</span>
-          <span class="hco-badge badge-violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18a13 13 0 0 1 0-18z"/></svg> 50+ Int'l Clients</span>
-          <span class="hco-badge badge-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> B2B &amp; B2C</span>
+          <span class="hco-badge badge-lime hco-badge-anim"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h7l-1 8 11-14h-7l0-6z"/></svg> Open to Opportunities</span>
+          <span class="hco-badge badge-violet hco-badge-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18a13 13 0 0 1 0-18z"/></svg> 50+ Int'l Clients</span>
+          <span class="hco-badge badge-cyan hco-badge-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> B2B &amp; B2C</span>
         </div>
       </div>
       <div class="hero-mini-stats">
-        <div class="hms"><div class="hms-num">56+</div><div class="hms-label">Reviews</div></div>
-        <div class="hms"><div class="hms-num">10+</div><div class="hms-label">Years Experience</div></div>
-        <div class="hms"><div class="hms-num">4+</div><div class="hms-label">Digital Channels</div></div>
+        <div class="hms"><div class="hms-num" data-count="56" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label">Reviews</div></div>
+        <div class="hms"><div class="hms-num" data-count="10" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label">Years Experience</div></div>
+        <div class="hms"><div class="hms-num" data-count="4" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label">Digital Channels</div></div>
       </div>
     </div>
   </div>
@@ -949,12 +1080,8 @@ footer a:hover{color:var(--lime);}
       <div class="expertise-title">Sales &amp; Growth</div>
       <div class="expertise-desc">B2B/B2C sales, client acquisition, lead generation and pipeline development through to closing and account growth.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">Client Acquisition</span><span class="bc-tag">Lead Generation</span><span class="bc-tag">Pipeline Development</span><span class="bc-tag">Key Account Management</span><span class="bc-tag">Negotiation</span><span class="bc-tag">CRM Management</span><span class="bc-tag">Sales Forecasting</span>
+        <span class="bc-tag">Client Acquisition</span><span class="bc-tag">Lead Generation</span><span class="bc-tag">Pipeline Development</span><span class="bc-tag">Key Account Management</span><span class="bc-tag">Negotiation</span><span class="bc-tag">CRM Management</span><span class="bc-tag">Sales Forecasting</span><span class="bc-tag">Partnerships</span><span class="bc-tag">Client Retention</span><span class="bc-tag">HubSpot</span><span class="bc-tag">Salesforce</span><span class="bc-tag">Zoho CRM</span><span class="bc-tag">Pipedrive</span><span class="bc-tag">Monday.com</span>
       </div>
-      <details class="expertise-more">
-        <summary>View all tools</summary>
-        <div class="expertise-tags" style="margin-top:0.6rem;"><span class="bc-tag">Partnerships</span><span class="bc-tag">Client Retention</span><span class="bc-tag">HubSpot</span><span class="bc-tag">Salesforce</span><span class="bc-tag">Zoho CRM</span><span class="bc-tag">Pipedrive</span><span class="bc-tag">Monday.com</span></div>
-      </details>
     </div>
 
     <div class="expertise-card">
@@ -964,12 +1091,8 @@ footer a:hover{color:var(--lime);}
       <div class="expertise-title">Marketing Strategy</div>
       <div class="expertise-desc">Integrated marketing strategy, go-to-market planning and campaign strategy aligned with commercial objectives.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">GTM Planning</span><span class="bc-tag">Campaign Strategy</span><span class="bc-tag">Brand Positioning</span><span class="bc-tag">Market Research</span><span class="bc-tag">Competitor Research</span><span class="bc-tag">Marketing-Sales Alignment</span><span class="bc-tag">Performance Measurement</span>
+        <span class="bc-tag">GTM Planning</span><span class="bc-tag">Campaign Strategy</span><span class="bc-tag">Brand Positioning</span><span class="bc-tag">Market Research</span><span class="bc-tag">Competitor Research</span><span class="bc-tag">Marketing-Sales Alignment</span><span class="bc-tag">Performance Measurement</span><span class="bc-tag">Google Workspace</span><span class="bc-tag">Microsoft 365</span><span class="bc-tag">WordPress</span><span class="bc-tag">Slack</span><span class="bc-tag">Outlook</span>
       </div>
-      <details class="expertise-more">
-        <summary>View all tools</summary>
-        <div class="expertise-tags" style="margin-top:0.6rem;"><span class="bc-tag">Google Workspace</span><span class="bc-tag">Microsoft 365</span><span class="bc-tag">WordPress</span><span class="bc-tag">Slack</span><span class="bc-tag">Outlook</span></div>
-      </details>
     </div>
 
     <div class="expertise-card">
@@ -979,27 +1102,19 @@ footer a:hover{color:var(--lime);}
       <div class="expertise-title">Social &amp; Digital</div>
       <div class="expertise-desc">Social media strategy, content planning and paid social execution across Meta, TikTok and LinkedIn.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">Social Media Strategy</span><span class="bc-tag">Content Calendar Planning</span><span class="bc-tag">Community Management</span><span class="bc-tag">Paid Social Advertising</span><span class="bc-tag">Platform Analytics &amp; KPI Reporting</span><span class="bc-tag">Short-Form Video</span><span class="bc-tag">Copywriting &amp; Captioning</span>
+        <span class="bc-tag">Social Media Strategy</span><span class="bc-tag">Content Calendar Planning</span><span class="bc-tag">Community Management</span><span class="bc-tag">Paid Social Advertising</span><span class="bc-tag">Platform Analytics &amp; KPI Reporting</span><span class="bc-tag">Short-Form Video</span><span class="bc-tag">Copywriting &amp; Captioning</span><span class="bc-tag">Meta Ads</span><span class="bc-tag">Google Ads</span><span class="bc-tag">TikTok Ads</span><span class="bc-tag">LinkedIn Ads</span>
       </div>
-      <details class="expertise-more">
-        <summary>View all tools</summary>
-        <div class="expertise-tags" style="margin-top:0.6rem;"><span class="bc-tag">Meta Ads</span><span class="bc-tag">Google Ads</span><span class="bc-tag">TikTok Ads</span><span class="bc-tag">LinkedIn Ads</span></div>
-      </details>
     </div>
 
     <div class="expertise-card">
       <div class="expertise-icon amber">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg>
       </div>
-      <div class="expertise-title">Creative &amp; AI</div>
+      <div class="expertise-title">Creative Production &amp; AI</div>
       <div class="expertise-desc">AI-assisted video/image production and creative execution across the Adobe suite and generative AI tools.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">Premiere Pro</span><span class="bc-tag">Photoshop</span><span class="bc-tag">After Effects</span><span class="bc-tag">Canva</span><span class="bc-tag">CapCut Pro</span><span class="bc-tag">AI-Assisted Video Production</span><span class="bc-tag">Illustrator</span>
+        <span class="bc-tag">Premiere Pro</span><span class="bc-tag">Photoshop</span><span class="bc-tag">After Effects</span><span class="bc-tag">Canva</span><span class="bc-tag">CapCut Pro</span><span class="bc-tag">AI-Assisted Video Production</span><span class="bc-tag">Illustrator</span><span class="bc-tag">InDesign</span><span class="bc-tag">Google Flow / Veo</span><span class="bc-tag">Kling AI</span><span class="bc-tag">Runway ML</span><span class="bc-tag">Google ImageFX</span><span class="bc-tag">Ideogram.ai</span><span class="bc-tag">ChatGPT</span><span class="bc-tag">Claude AI</span>
       </div>
-      <details class="expertise-more">
-        <summary>View all tools</summary>
-        <div class="expertise-tags" style="margin-top:0.6rem;"><span class="bc-tag">InDesign</span><span class="bc-tag">Google Flow / Veo</span><span class="bc-tag">Kling AI</span><span class="bc-tag">Runway ML</span><span class="bc-tag">Google ImageFX</span><span class="bc-tag">Ideogram.ai</span><span class="bc-tag">ChatGPT</span><span class="bc-tag">Claude AI</span></div>
-      </details>
     </div>
 
   </div>
@@ -1043,7 +1158,7 @@ footer a:hover{color:var(--lime);}
     <span class="ticker-item">International Freelance Projects <span>◆</span></span>
   </div>
 </div>
-<p style="text-align:center;font-size:0.68rem;color:var(--muted);padding:0.75rem 2.5rem 0;background:var(--bg2);">Industry exposure gained across sales, marketing, account management and international freelance projects.</p>
+<p style="text-align:center;font-size:0.68rem;color:var(--muted);padding:0.75rem 2.5rem 0;background:var(--bg2);">Industry exposure gained across sales, marketing, business development and international client projects.</p>
 
 
 <!-- EXPERIENCE -->
@@ -1179,23 +1294,25 @@ footer a:hover{color:var(--lime);}
 <section class="reviews-section" id="reviews">
   <div class="s-tag">Client Testimonials</div>
   <h2 class="s-title reveal reveal-blur">What International <em>Clients Say</em></h2>
-  <div class="credibility-line reveal">4.7-star Fiverr rating across 56+ client reviews.</div>
-  <p class="s-sub reveal">A selection of feedback from clients around the world.</p>
+  <div class="credibility-line reveal">4.7★ Client Rating &bull; 56+ Verified Reviews</div>
+  <p class="s-sub reveal">Feedback from clients across the US, UK, Australia, Europe and Asia.</p>
   <div class="reviews-grid reveal">
     <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Amazing work, very friendly and gets to the point. This gentleman knows which direction to point you and has great talent — you can't go wrong. Thank you again Sunny.</p><div class="review-author"><div class="review-av" style="background:var(--lime);">K</div><div><div class="review-name">khalilsood</div><div class="review-loc">🇺🇸 United States · Repeat Client</div></div></div></div>
     <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Excellent and great to work with. Will definitely use these services again. Fast, professional and delivered exactly what I needed on time.</p><div class="review-author"><div class="review-av" style="background:var(--cyan);color:#000;">C</div><div><div class="review-name">carolinmac13</div><div class="review-loc">🇦🇺 Australia</div></div></div></div>
     <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">The best person on Fiverr. Great communication, amazing work, always fast. Wonderful as always — repeat business, always a great product.</p><div class="review-author"><div class="review-av" style="background:var(--violet);">E</div><div><div class="review-name">evosza</div><div class="review-loc">🇺🇸 United States · Repeat Client</div></div></div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Brilliant — once he got it right it was perfect and on the ball. Very responsive and professional throughout the entire project.</p><div class="review-author"><div class="review-av" style="background:#1d4ed8;">S</div><div><div class="review-name">samfindlay</div><div class="review-loc">🇬🇧 United Kingdom</div></div></div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Amazing Seller, works very fast and always happy to help — A+++. One of the fastest Sellers I've worked with. Highly recommended!</p><div class="review-author"><div class="review-av" style="background:#059669;">W</div><div><div class="review-name">website_mods</div><div class="review-loc">🇦🇺 Australia · Repeat Client</div></div></div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Smooth and easy. The edits are fresh and modern. Very responsive and delivered ahead of schedule — will work again.</p><div class="review-author"><div class="review-av" style="background:var(--pink);color:#000;">R</div><div><div class="review-name">radmilam</div><div class="review-loc">🇳🇴 Norway</div></div></div></div>
   </div>
-  <div class="reviews-grid" id="reviewsExtra" style="display:none;margin-top:1.25rem;">
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">So professional, perfect communication. Easy to speak with him! So understanding — would definitely love to work with him again.</p><div class="review-author"><div class="review-av" style="background:var(--amber);color:#000;">A</div><div><div class="review-name">ahmedehab179</div><div class="review-loc">🇭🇺 Hungary</div></div></div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Sunny is a quick pro. Sure will work with him long-term. Great price with extremely fast turnaround. Always happy to help.</p><div class="review-author"><div class="review-av" style="background:#0891b2;">N</div><div><div class="review-name">nithyar_1987</div><div class="review-loc">🇮🇳 India</div></div></div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Outstanding job and extra patience. Works very fast and is always happy to help — A+++. Highly recommended!</p><div class="review-author"><div class="review-av" style="background:#16a34a;">A</div><div><div class="review-name">aboalhole</div><div class="review-loc">🇦🇺 Australia</div></div></div></div>
+  <div class="reviews-extra-wrap" id="reviewsExtraWrap">
+    <div class="reviews-grid" id="reviewsExtra" style="margin-top:1.25rem;">
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Brilliant — once he got it right it was perfect and on the ball. Very responsive and professional throughout the entire project.</p><div class="review-author"><div class="review-av" style="background:#1d4ed8;">S</div><div><div class="review-name">samfindlay</div><div class="review-loc">🇬🇧 United Kingdom</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Amazing Seller, works very fast and always happy to help — A+++. One of the fastest Sellers I've worked with. Highly recommended!</p><div class="review-author"><div class="review-av" style="background:#059669;">W</div><div><div class="review-name">website_mods</div><div class="review-loc">🇦🇺 Australia · Repeat Client</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Smooth and easy. The edits are fresh and modern. Very responsive and delivered ahead of schedule — will work again.</p><div class="review-author"><div class="review-av" style="background:var(--pink);color:#000;">R</div><div><div class="review-name">radmilam</div><div class="review-loc">🇳🇴 Norway</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">So professional, perfect communication. Easy to speak with him! So understanding — would definitely love to work with him again.</p><div class="review-author"><div class="review-av" style="background:var(--amber);color:#000;">A</div><div><div class="review-name">ahmedehab179</div><div class="review-loc">🇭🇺 Hungary</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Sunny is a quick pro. Sure will work with him long-term. Great price with extremely fast turnaround. Always happy to help.</p><div class="review-author"><div class="review-av" style="background:#0891b2;">N</div><div><div class="review-name">nithyar_1987</div><div class="review-loc">🇮🇳 India</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Outstanding job and extra patience. Works very fast and is always happy to help — A+++. Highly recommended!</p><div class="review-author"><div class="review-av" style="background:#16a34a;">A</div><div><div class="review-name">aboalhole</div><div class="review-loc">🇦🇺 Australia</div></div></div></div>
+    </div>
   </div>
   <div style="text-align:center;margin-top:2rem;">
-    <button type="button" class="btn-ghost" id="viewMoreReviewsBtn" onclick="toggleReviews()">View More Reviews</button>
+    <button type="button" class="btn-ghost" id="viewMoreReviewsBtn" onclick="toggleReviews()">View More Client Reviews ↓</button>
   </div>
 </section>
 
@@ -1248,33 +1365,33 @@ footer a:hover{color:var(--lime);}
     </div>
   </div>
   <div class="contact-cards reveal">
-    <div class="contact-card">
+    <a class="contact-card cc-violet" href="mailto:awaisshahidpk@gmail.com">
       <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span>
       <div class="cc-label">Email</div>
-      <a href="mailto:awaisshahidpk@gmail.com"><div class="cc-val">awaisshahidpk@gmail.com</div></a>
-    </div>
-    <div class="contact-card">
+      <div class="cc-val cc-val-email">awaisshahidpk@gmail.com</div>
+    </a>
+    <a class="contact-card cc-cyan" href="tel:+971582605516">
       <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
       <div class="cc-label">Phone</div>
-      <a href="tel:+971582605516"><div class="cc-val">+971 58 260 5516</div></a>
-    </div>
-    <div class="contact-card">
+      <div class="cc-val">+971 58 260 5516</div>
+    </a>
+    <a class="contact-card cc-green" href="https://wa.me/971582605516" target="_blank" rel="noopener">
       <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
       <div class="cc-label">WhatsApp</div>
-      <a href="https://wa.me/971582605516" target="_blank" rel="noopener"><div class="cc-val">+971 58 260 5516</div></a>
-    </div>
-    <div class="contact-card">
+      <div class="cc-val">+971 58 260 5516</div>
+    </a>
+    <a class="contact-card cc-linkedin" href="https://www.linkedin.com/in/awaisshahidpk/" target="_blank" rel="noopener">
       <span class="cc-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </span>
       <div class="cc-label">LinkedIn</div>
-      <a href="https://www.linkedin.com/in/awaisshahidpk/" target="_blank" rel="noopener"><div class="cc-val">Awais Shahid</div></a>
-    </div>
-    <div class="contact-card">
+      <div class="cc-val">Awais Shahid</div>
+    </a>
+    <a class="contact-card cc-violet" href="https://www.fiverr.com/sunny_pro" target="_blank" rel="noopener">
       <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18a13 13 0 0 1 0-18z"/></svg></span>
-      <div class="cc-label">Fiverr Portfolio</div>
-      <a href="https://www.fiverr.com/sunny_pro" target="_blank" rel="noopener"><div class="cc-val">fiverr.com/sunny_pro</div></a>
-    </div>
+      <div class="cc-label">Portfolio</div>
+      <div class="cc-val">View Portfolio &rarr;</div>
+    </a>
   </div>
 </section>
 
@@ -1514,12 +1631,12 @@ footer a:hover{color:var(--lime);}
 })();
 
 function toggleReviews() {
-  var extra = document.getElementById('reviewsExtra');
+  var wrap = document.getElementById('reviewsExtraWrap');
   var btn = document.getElementById('viewMoreReviewsBtn');
-  if (!extra || !btn) return;
-  var isHidden = extra.style.display === 'none';
-  extra.style.display = isHidden ? 'grid' : 'none';
-  btn.textContent = isHidden ? 'Show Fewer Reviews' : 'View More Reviews';
+  if (!wrap || !btn) return;
+  var isExpanding = !wrap.classList.contains('expanded');
+  wrap.classList.toggle('expanded');
+  btn.textContent = isExpanding ? 'Show Fewer Reviews ↑' : 'View More Client Reviews ↓';
 }
 
 // MOBILE NAV TOGGLE
@@ -1603,31 +1720,162 @@ function toggleReviews() {
   }
 })();
 
-// HERO CHART — plays once on first viewport entry, then remains static; respects prefers-reduced-motion
+// HERO — master entrance sequence + parallax
 (function() {
-  var wrap = document.querySelector('.hero-graphic-wrap');
-  if (!wrap) return;
+  var heroCard = document.getElementById('heroCard');
+  var heroRight = document.querySelector('.hero-right');
+  if (!heroCard || !heroRight) return;
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) return; // static final chart already shown by CSS default state
 
-  var animEls = wrap.querySelectorAll('.chart-bar, .chart-line, .chart-dot, .chart-final-dot, .chart-glow-ring');
+  var fstatRating = document.getElementById('fstatRating');
+  var fstatReach = document.getElementById('fstatReach');
+  var starWrap = document.getElementById('fstatStarWrap');
+  var chartLabel = document.getElementById('chartLabel');
+  var chartWrap = document.querySelector('.hero-graphic-wrap');
+  var chartEls = chartWrap ? chartWrap.querySelectorAll('.chart-bar, .chart-line, .chart-dot, .chart-final-dot, .chart-glow-ring, .bar-light, .line-glow, .chart-final-breathe') : [];
+  var nameMask = document.getElementById('hcoNameMask');
+  var role = document.getElementById('hcoRole');
+  var badges = document.querySelectorAll('.hco-badge-anim');
+  var hmsNums = document.querySelectorAll('.hms-num[data-count]');
+
+  function animateCount(el, duration, onDone) {
+    var target = parseFloat(el.getAttribute('data-count'));
+    var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    var valEl = el.querySelector('.count-val');
+    if (!valEl || isNaN(target)) return;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      valEl.textContent = (target * eased).toFixed(decimals);
+      if (progress < 1) requestAnimationFrame(step);
+      else { valEl.textContent = target.toFixed(decimals); if (onDone) onDone(); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (reduceMotion) {
+    // Show everything immediately, no animation
+    heroCard.classList.add('in');
+    if (fstatRating) fstatRating.classList.add('in');
+    if (fstatReach) fstatReach.classList.add('in');
+    [fstatRating, fstatReach].forEach(function(card) {
+      if (!card) return;
+      var el = card.querySelector('[data-count]');
+      if (!el) return;
+      var valEl = el.querySelector('.count-val');
+      var target = parseFloat(el.getAttribute('data-count'));
+      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      if (valEl && !isNaN(target)) valEl.textContent = target.toFixed(decimals);
+    });
+    if (chartLabel) chartLabel.classList.add('in');
+    chartEls.forEach(function(el) { el.classList.add('chart-anim-play'); });
+    if (nameMask) nameMask.classList.add('in');
+    if (role) role.classList.add('in');
+    badges.forEach(function(b) { b.classList.add('in'); });
+    hmsNums.forEach(function(el) {
+      var valEl = el.querySelector('.count-val');
+      var target = parseFloat(el.getAttribute('data-count'));
+      if (valEl && !isNaN(target)) valEl.textContent = target;
+      var label = el.parentElement.querySelector('.hms-label');
+      if (label) label.classList.add('in');
+    });
+    return;
+  }
+
   var played = false;
-
-  var chartObserver = new IntersectionObserver(function(entries) {
+  var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting && !played) {
         played = true;
-        requestAnimationFrame(function() {
-          requestAnimationFrame(function() {
-            animEls.forEach(function(el) { el.classList.add('chart-anim-play'); });
+
+        // Step 1: card entrance
+        heroCard.classList.add('in');
+        setTimeout(function() { heroCard.classList.add('tilt-ready'); }, 850);
+
+        // Step 2: floating metrics entrance + count-up
+        setTimeout(function() {
+          if (fstatRating) fstatRating.classList.add('in');
+          animateCount(fstatRating.querySelector('.fstat-val'), 750, function() {
+            if (starWrap) starWrap.classList.add('pulse-once');
           });
+        }, 150);
+        setTimeout(function() {
+          if (fstatReach) fstatReach.classList.add('in');
+          animateCount(fstatReach.querySelector('.fstat-val'), 750);
+        }, 250);
+
+        // Step 3: chart label + growth chart sequence
+        setTimeout(function() { if (chartLabel) chartLabel.classList.add('in'); }, 350);
+        setTimeout(function() {
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              chartEls.forEach(function(el) { el.classList.add('chart-anim-play'); });
+            });
+          });
+        }, 450);
+
+        // Step 4: name + subtitle reveal (after chart settles, ~450 + 1.05s glow + buffer)
+        setTimeout(function() { if (nameMask) nameMask.classList.add('in'); }, 1750);
+        setTimeout(function() { if (role) role.classList.add('in'); }, 2000);
+
+        // Step 5: badges stagger
+        badges.forEach(function(badge, i) {
+          setTimeout(function() { badge.classList.add('in'); }, 2200 + i * 90);
         });
-        chartObserver.unobserve(wrap);
+
+        // Step 6: bottom stats count-up, labels follow shortly after
+        var statsStart = 2450;
+        hmsNums.forEach(function(el, i) {
+          setTimeout(function() {
+            animateCount(el, 650);
+            var label = el.parentElement.querySelector('.hms-label');
+            setTimeout(function() { if (label) label.classList.add('in'); }, 150);
+          }, statsStart + i * 80);
+        });
+
+        observer.unobserve(heroCard);
       }
     });
   }, { threshold: 0.3 });
-  chartObserver.observe(wrap);
+  observer.observe(heroCard);
+
+  // Subtle pointer-responsive parallax + cursor glass light (desktop, fine pointer only)
+  var fineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (fineHover) {
+    var graphicWrap = document.querySelector('.hero-graphic-wrap');
+    var rafId = null;
+    heroCard.addEventListener('mousemove', function(e) {
+      if (rafId) return;
+      rafId = requestAnimationFrame(function() {
+        rafId = null;
+        var cardRect = heroCard.getBoundingClientRect();
+        var rightRect = heroRight.getBoundingClientRect();
+        var cpx = (e.clientX - cardRect.left) / cardRect.width;
+        var cpy = (e.clientY - cardRect.top) / cardRect.height;
+        heroCard.style.setProperty('--mx', (cpx * 100) + '%');
+        heroCard.style.setProperty('--my', (cpy * 100) + '%');
+
+        var px = (e.clientX - rightRect.left) / rightRect.width - 0.5;
+        var py = (e.clientY - rightRect.top) / rightRect.height - 0.5;
+        heroCard.style.transform = 'translateY(0) rotateX(' + (-py * 3) + 'deg) rotateY(' + (px * 3) + 'deg)';
+        if (graphicWrap) graphicWrap.style.transform = 'translate(' + (px * 2) + 'px,' + (py * 2) + 'px)';
+        if (fstatRating) fstatRating.style.transform = 'translate(' + (px * 6) + 'px,' + (py * 6) + 'px)';
+        if (fstatReach) fstatReach.style.transform = 'translate(' + (px * -8) + 'px,' + (py * -8) + 'px)';
+      });
+    });
+    heroCard.addEventListener('mouseenter', function() { heroCard.classList.add('glass-light-on'); });
+    heroCard.addEventListener('mouseleave', function() {
+      heroCard.classList.remove('glass-light-on');
+      heroCard.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg)';
+      if (graphicWrap) graphicWrap.style.transform = '';
+      if (fstatRating) fstatRating.style.transform = '';
+      if (fstatReach) fstatReach.style.transform = '';
+    });
+  }
 })();
+
 // CV CARD DATA-FLOW — pause decorative animation when off-screen
 (function() {
   var card = document.querySelector('.cv-feature');
