@@ -38,7 +38,7 @@ GitHub usually takes 1–2 minutes to publish after the first push.
 ## What's in this package
 
 - `index.html` — the complete site (single file, no build step needed)
-- `assets/cv/Awais_Shahid_Sales_Marketing_Manager.pdf` — the one CV linked from the site
+- `Awais - Sales Marketing Manager.pdf` — the one CV linked from the site (must sit in the repo root, alongside `index.html`, exact filename including spaces)
 - `assets/images/` — empty, reserved for future case-study creative assets (per the
   no-base64-images policy already applied to this site)
 

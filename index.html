@@ -55,7 +55,7 @@ nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;backg
 .nav-hire::after{display:none;}
 .nav-hire:hover{background:#b8ee00 !important;transform:translateY(-1px);box-shadow:0 6px 18px rgba(200,255,0,0.3);}
 .nav-hire:active{transform:translateY(0) scale(0.96);box-shadow:0 3px 10px rgba(200,255,0,0.25);}
-.nav-hire-arrow{display:inline-block;transition:transform 0.25s ease;}
+.nav-hire-arrow{display:inline-flex;align-items:center;line-height:1;transition:transform 0.25s ease;}
 .nav-hire:hover .nav-hire-arrow{transform:translateX(3px);}
 .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:4px;background:none;border:none;cursor:pointer;padding:8px;}
 .nav-toggle span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.25s;}
@@ -277,11 +277,12 @@ nav::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;backg
   border-top:1px solid var(--border);margin-top:1rem;
   position:relative;z-index:1;
 }
-.hms{background:var(--surface2);padding:0.9rem 0.5rem;text-align:center;cursor:default;}
+.hms{background:var(--surface2);padding:0.9rem 0.5rem;text-align:center;cursor:default;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;}
 @media (prefers-reduced-motion:no-preference){.hms{transition:background 0.25s ease,transform 0.25s ease;}}
 .hms:hover{background:var(--surface);transform:translateY(-2px);}
-.hms-num{font-size:1.1rem;font-weight:900;color:var(--lime);line-height:1;margin-bottom:2px;}
-.hms-label{font-size:0.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;opacity:0;}
+.hms-num{font-size:1.1rem;font-weight:900;color:var(--lime);line-height:1;margin-bottom:5px;}
+.hms-label{font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;line-height:1.35;opacity:0;display:flex;flex-direction:column;align-items:center;}
+.hms-label-line{display:block;}
 @media (prefers-reduced-motion:no-preference){.hms-label{transition:opacity 0.4s ease;}}
 .hms-label.in{opacity:1;}
 @media (prefers-reduced-motion:reduce){.hms-label{opacity:1;}}
@@ -357,7 +358,7 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .expertise-title{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:0.6rem;letter-spacing:-0.3px;}
 .expertise-desc{font-size:0.85rem;color:var(--muted2);line-height:1.7;font-weight:400;margin-bottom:1.25rem;}
 .expertise-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
-.bc-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted2);font-size:0.72rem;font-weight:600;padding:5px 11px;border-radius:8px;letter-spacing:0.2px;}
+.bc-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted2);font-size:0.72rem;font-weight:600;padding:5px 11px;border-radius:8px;letter-spacing:0.2px;position:relative;overflow:hidden;transition:color 0.4s ease,border-color 0.4s ease,background-color 0.4s ease,box-shadow 0.4s ease,transform 0.4s ease;}
 
 /* TOOLS (About section chips) */
 .tools-wrap{display:flex;flex-wrap:wrap;gap:0.75rem;}
@@ -366,7 +367,7 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 
 /* WHAT I BRING — interactive expertise cards */
 .bring-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
-.bring-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.15rem;display:flex;flex-direction:column;align-items:flex-start;gap:0.9rem;overflow:hidden;isolation:isolate;transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),border-color 0.3s,background 0.3s;cursor:default;}
+.bring-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem 1rem;display:flex;flex-direction:column;align-items:flex-start;gap:0.9rem;overflow:hidden;isolation:isolate;transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),border-color 0.3s,background 0.3s;cursor:default;}
 .bring-card::before{content:"";position:absolute;inset:0;opacity:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(124,92,252,0.16),transparent 60%);transition:opacity 0.35s ease;pointer-events:none;z-index:0;}
 .bring-card:hover{border-color:var(--border2);background:var(--surface2);}
 .bring-card:hover::before{opacity:1;}
@@ -382,7 +383,7 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .bring-card:hover .bring-icon.violet{box-shadow:0 0 20px rgba(124,92,252,0.45);}
 .bring-card:hover .bring-icon.cyan{box-shadow:0 0 20px rgba(0,212,255,0.4);}
 .bring-card:hover .bring-icon.amber{box-shadow:0 0 20px rgba(255,176,32,0.4);}
-.bring-label{font-size:0.87rem;font-weight:700;color:var(--text);line-height:1.35;letter-spacing:-0.1px;position:relative;z-index:1;}
+.bring-label{font-size:0.94rem;font-weight:700;color:var(--text);line-height:1.35;letter-spacing:-0.1px;position:relative;z-index:1;}
 .bring-desc{font-size:0.68rem;color:var(--muted2);line-height:1.4;position:relative;z-index:1;margin-top:-0.3rem;transition:color 0.3s ease;}
 .bring-card:hover .bring-desc{color:var(--text);}
 @media (prefers-reduced-motion: no-preference){
@@ -481,7 +482,8 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 
 /* RESULTS */
 .results-section{background:var(--bg);}
-.results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+.results-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:3rem;}
+.result-card{flex:0 0 calc((100% - 3rem)/4);}
 .result-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden;isolation:isolate;transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.3s,box-shadow 0.3s;}
 .result-card::before{content:"";position:absolute;inset:0;z-index:0;opacity:0;background:radial-gradient(circle at 50% 25%,rgba(124,92,252,0.18),transparent 65%);transition:opacity 0.35s ease;pointer-events:none;}
 .result-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,0,0,0.3);}
@@ -497,6 +499,7 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 }
 @keyframes rcCountGlow{0%{box-shadow:0 0 0 rgba(124,92,252,0);}35%{box-shadow:0 0 26px rgba(124,92,252,0.32);}100%{box-shadow:0 0 0 rgba(124,92,252,0);}}
 .rc-label{font-size:0.75rem;color:var(--muted2);line-height:1.5;font-weight:400;position:relative;z-index:1;}
+.rc-sublabel{font-size:0.62rem;color:var(--muted);line-height:1.4;font-weight:400;position:relative;z-index:1;margin-top:2px;}
 .rc-seg{display:inline-block;}
 @media (prefers-reduced-motion:no-preference){
   .rc-seg{opacity:0;transform:translateY(6px);transition:opacity 0.35s ease,transform 0.35s ease;}
@@ -520,6 +523,21 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .exp-marker::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--violet);transition:background 0.3s ease;}
 .exp-item:hover .exp-marker{border-color:var(--cyan);box-shadow:0 0 14px rgba(0,212,255,0.5);}
 .exp-item:hover .exp-marker::after{background:var(--cyan);}
+.exp-marker{transition:box-shadow 0.5s ease,border-color 0.5s ease;}
+.exp-item.tl-active .exp-marker{border-color:var(--cyan);box-shadow:0 0 0 4px rgba(0,212,255,0.14),0 0 16px rgba(0,212,255,0.55);}
+.exp-item.tl-active .exp-marker::after{background:var(--cyan);}
+.exp-marker::before{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(0,212,255,0.5);opacity:0;pointer-events:none;}
+@media (prefers-reduced-motion:no-preference){
+  .exp-item.tl-pulse .exp-marker::before{animation:tlRingPulse 1s ease-out 1;}
+}
+@keyframes tlRingPulse{
+  0%{opacity:0.7;transform:scale(0.6);}
+  100%{opacity:0;transform:scale(1.6);}
+}
+.exp-year{transition:color 0.5s ease,text-shadow 0.5s ease;}
+.exp-item.tl-active .exp-year{color:var(--text);text-shadow:0 0 12px rgba(0,212,255,0.4);}
+.exp-item.tl-active .exp-card{border-color:rgba(124,92,252,0.3);}
+.exp-card.reveal{transform:translateY(10px);}
 .exp-year{position:absolute;left:-6.5rem;width:2.75rem;top:1.6rem;height:20px;line-height:20px;font-size:0.7rem;font-weight:800;letter-spacing:1px;color:rgba(232,232,248,0.82);text-transform:uppercase;white-space:nowrap;text-align:right;background:var(--bg);padding:0 4px;border-radius:4px;z-index:3;}
 
 .exp-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.75rem 2rem;transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.3s ease,box-shadow 0.3s ease;}
@@ -530,8 +548,68 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .exp-meta{font-size:0.7rem;color:var(--muted);margin-bottom:0.9rem;}
 .exp-desc{font-size:0.85rem;color:var(--muted2);line-height:1.75;margin-bottom:1rem;}
 .exp-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.exp-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted2);font-size:0.68rem;font-weight:600;padding:4px 10px;border-radius:8px;transition:border-color 0.25s ease,color 0.25s ease;}
+.exp-tag{background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted2);font-size:0.68rem;font-weight:600;padding:4px 10px;border-radius:8px;position:relative;overflow:hidden;transition:border-color 0.4s ease,color 0.4s ease,background-color 0.4s ease,box-shadow 0.4s ease,transform 0.4s ease;}
 .exp-item:hover .exp-tag{border-color:rgba(124,92,252,0.32);color:var(--text);}
+
+/* TAG HOVER — Experience & Consulting tags respond to manual hover only (Experience auto-cycling removed) */
+.exp-tags{--tag-r:124;--tag-g:92;--tag-b:252;}
+.path-tags{--tag-r:0;--tag-g:212;--tag-b:255;}
+
+.exp-tag:hover{
+  color:var(--text);
+  border-color:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.55);
+  background:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.1);
+  box-shadow:0 0 0 1px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.22),0 6px 14px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.18);
+  transform:translateY(-1px);
+}
+/* Consulting & Projects tags keep their existing sequential highlight (unchanged) */
+.exp-tag.tag-active{
+  color:var(--text);
+  border-color:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.42);
+  background:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.07);
+  box-shadow:0 0 0 1px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.16),0 4px 12px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.14);
+  transform:translateY(-1px);
+}
+.exp-tag::after{
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,0.3),transparent);
+  transform:skewX(-15deg);opacity:0;pointer-events:none;
+}
+@media (prefers-reduced-motion:no-preference){
+  .exp-tag.tag-active::after{animation:tagSweep 900ms ease;}
+}
+@keyframes tagSweep{
+  0%{left:-60%;opacity:0;}
+  18%{opacity:0.4;}
+  55%{opacity:0.12;}
+  100%{left:120%;opacity:0;}
+}
+@media (prefers-reduced-motion:reduce){
+  .bc-tag,.exp-tag{transition:border-color 0.25s ease,color 0.25s ease,background-color 0.25s ease;}
+}
+
+/* CARD ACTIVATION — "Four Ways I Drive Growth": motion stays on the card border/icon only, tags remain static except hover */
+.expertise-grid .expertise-card:nth-child(1){--tag-r:200;--tag-g:255;--tag-b:0;}
+.expertise-grid .expertise-card:nth-child(2){--tag-r:124;--tag-g:92;--tag-b:252;}
+.expertise-grid .expertise-card:nth-child(3){--tag-r:0;--tag-g:212;--tag-b:255;}
+.expertise-grid .expertise-card:nth-child(4){--tag-r:255;--tag-g:176;--tag-b:32;}
+.bc-tag:hover{
+  color:var(--text);
+  border-color:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.65);
+  background:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.14);
+  box-shadow:0 0 0 1px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.3),0 8px 20px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.26);
+  transform:translateY(-1px);
+}
+.expertise-card{position:relative;transition:border-color 0.6s ease,box-shadow 0.6s ease;}
+.expertise-icon{transition:filter 0.6s ease,box-shadow 0.6s ease;}
+.expertise-card:hover{
+  border-color:rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.45);
+  box-shadow:0 0 0 1px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.14),0 12px 28px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.1);
+}
+.expertise-card:hover .expertise-icon{
+  filter:brightness(1.2);
+  box-shadow:0 0 18px rgba(var(--tag-r),var(--tag-g),var(--tag-b),0.35);
+}
 
 @media(max-width:640px){
   .exp-timeline{padding-left:4rem;}
@@ -762,7 +840,7 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 
 /* CONTACT PATHS — career + freelance */
 .contact-paths{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;max-width:900px;margin:0 auto 2.75rem;text-align:left;}
-.path-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.3s,box-shadow 0.3s;}
+.path-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.3s,box-shadow 0.3s;display:flex;flex-direction:column;}
 .path-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 14px 32px rgba(0,0,0,0.28);}
 .path-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;}
 .path-icon svg{width:26px;height:26px;}
@@ -770,7 +848,25 @@ section{padding:5rem 2.5rem;position:relative;z-index:2;}
 .path-icon.cyan{background:rgba(0,212,255,0.1);color:var(--cyan);}
 .path-title{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:0.55rem;letter-spacing:-0.3px;}
 .path-desc{font-size:0.83rem;color:var(--muted2);line-height:1.7;margin-bottom:1.5rem;}
-.path-cta{width:100%;justify-content:center;}
+.path-status{font-size:0.72rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem;}
+.path-cta{width:100%;justify-content:center;margin-top:auto;}
+.path-cta-secondary{position:relative;transition:border-color 0.3s ease,background 0.3s ease,box-shadow 0.3s ease,transform 0.3s ease;}
+.path-cta-arrow{display:inline-block;transition:transform 0.3s ease;}
+.path-cta-secondary:hover{
+  border-color:rgba(0,212,255,0.5);
+  background:rgba(0,212,255,0.06);
+  box-shadow:0 0 0 1px rgba(0,212,255,0.18),0 8px 20px rgba(0,212,255,0.16);
+  transform:translateY(-1.5px);
+}
+.path-cta-secondary:hover .path-cta-arrow{transform:translateX(5px);}
+@media (prefers-reduced-motion:no-preference){
+  .path-cta-secondary{animation:ctaBorderPulse 5.5s ease-in-out infinite;}
+}
+@keyframes ctaBorderPulse{
+  0%,70%,100%{border-color:var(--border2);box-shadow:none;}
+  85%{border-color:rgba(0,212,255,0.55);box-shadow:0 0 0 1px rgba(0,212,255,0.22),0 0 16px rgba(0,212,255,0.28);}
+}
+.path-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
 @media(max-width:768px){.contact-paths{grid-template-columns:1fr;}}
 
 /* FOOTER */
@@ -794,7 +890,8 @@ footer a:hover{color:var(--lime);}
   .hero-card{width:100%;max-width:420px;}
   .fstat{display:none;}
   .expertise-grid{grid-template-columns:1fr;}
-  .results-grid{grid-template-columns:repeat(2,1fr);}
+  .results-grid{gap:1rem;}
+  .result-card{flex-basis:calc((100% - 1rem)/2);}
   .contact-cards{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:768px){
@@ -817,14 +914,14 @@ footer a:hover{color:var(--lime);}
   footer{flex-direction:column;text-align:center;padding:1.5rem;}
 
   /* RESULTS — mobile: 2 columns, sized to prevent clipping/overflow */
-  .results-grid{grid-template-columns:repeat(2,1fr);gap:0.85rem;}
-  .result-card{padding:1.5rem 1rem;}
+  .results-grid{gap:0.85rem;}
+  .result-card{flex-basis:calc((100% - 0.85rem)/2);padding:1.5rem 1rem;}
   .rc-num{font-size:1.9rem;letter-spacing:-1px;word-break:break-word;}
   .rc-num span{font-size:1.15rem!important;}
   .rc-label{font-size:0.7rem;}
 }
 @media(max-width:360px){
-  .results-grid{grid-template-columns:1fr;}
+  .result-card{flex-basis:100%;}
   .rc-num{font-size:2.3rem;}
   .rc-num span{font-size:1.4rem!important;}
 }
@@ -842,8 +939,8 @@ footer a:hover{color:var(--lime);}
     <li><a href="#experience" data-section="experience">Experience</a></li>
     <li><a href="#education" data-section="education">Education</a></li>
     <li><a href="#reviews" data-section="reviews">Reviews</a></li>
-    <li><a href="#cvs" data-section="cvs">CV</a></li>
-    <li><a href="#contact" class="nav-hire">Work With Me <span class="nav-hire-arrow">&rarr;</span></a></li>
+    <li><a href="#cvs" data-section="cvs">Resume</a></li>
+    <li><a href="#contact" class="nav-hire">Contact Me <span class="nav-hire-arrow">&rarr;</span></a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -864,7 +961,7 @@ footer a:hover{color:var(--lime);}
       <span class="tagline">Sales &amp; Marketing<span class="hero-tagline-sep">|</span>Business Development<span class="hero-tagline-sep">|</span>Social Media &amp; Digital Growth</span>
     </h1>
     <p class="hero-desc">
-      I combine commercial strategy, client acquisition and digital marketing execution to drive measurable business growth. <strong>10+ years of combined experience</strong> across Sales &amp; Marketing, Business Development, Digital Marketing and Social Media — <strong>B2B &amp; B2C, UAE, UK and international markets.</strong>
+      I combine commercial strategy, client acquisition and digital marketing execution to drive measurable business growth. <strong>10+ years of experience</strong> across Sales &amp; Marketing, Business Development, Digital Marketing and Social Media — <strong>B2B &amp; B2C, UAE, UK and international markets.</strong>
     </p>
     <div class="hero-actions">
       <a href="#contact" class="btn-lime">Contact Me &rarr;</a>
@@ -885,8 +982,8 @@ footer a:hover{color:var(--lime);}
       <div class="fstat-inner">
         <div class="fstat-hover-lift">
           <div class="fstat-rating">
-            <div class="fstat-star-wrap" id="fstatStarWrap"><svg class="fstat-star" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.1 6.6L12 17.9l-5.8 3.1 1.1-6.6L2.5 9.5l6.6-.9L12 2.5z"/></svg></div>
-            <div class="fstat-text"><div class="fstat-val" data-count="4.7" data-decimals="1"><span class="count-val">0.0</span></div><div class="fstat-label">Client Rated</div></div>
+            <div class="fstat-star-wrap" id="fstatStarWrap"><svg class="fstat-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
+            <div class="fstat-text"><div class="fstat-val" data-count="15" data-suffix="%"><span class="count-val">0</span><span class="count-suffix">%</span></div><div class="fstat-label">YoY Revenue Growth</div></div>
           </div>
         </div>
       </div>
@@ -900,7 +997,7 @@ footer a:hover{color:var(--lime);}
     </div>
     <div class="hero-card" id="heroCard">
       <div class="hero-graphic-wrap">
-        <div class="chart-label" id="chartLabel">Growth Across Markets</div>
+        <div class="chart-label" id="chartLabel">Commercial Growth &amp; Impact</div>
         <svg viewBox="0 0 300 200" style="width:100%;height:auto;display:block;" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0">
@@ -954,15 +1051,15 @@ footer a:hover{color:var(--lime);}
         <div class="hco-name-mask" id="hcoNameMask"><span class="hco-name">Awais Shahid</span></div>
         <div class="hco-role" id="hcoRole">Sales, Marketing &amp; Business Development &middot; Dubai, UAE</div>
         <div class="hco-badges">
-          <span class="hco-badge badge-lime hco-badge-anim"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h7l-1 8 11-14h-7l0-6z"/></svg> Open to Opportunities</span>
+          <span class="hco-badge badge-lime hco-badge-anim"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h7l-1 8 11-14h-7l0-6z"/></svg> Available Immediately</span>
           <span class="hco-badge badge-violet hco-badge-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18a13 13 0 0 1 0-18z"/></svg> 50+ Int'l Clients</span>
           <span class="hco-badge badge-cyan hco-badge-anim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> B2B &amp; B2C</span>
         </div>
       </div>
       <div class="hero-mini-stats">
-        <div class="hms"><div class="hms-num" data-count="56" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label">Reviews</div></div>
-        <div class="hms"><div class="hms-num" data-count="10" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label">Years Experience</div></div>
-        <div class="hms"><div class="hms-num" data-count="4" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label">Digital Channels</div></div>
+        <div class="hms"><div class="hms-num" data-count="50" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label"><span class="hms-label-line">International</span><span class="hms-label-line">Clients</span></div></div>
+        <div class="hms"><div class="hms-num" data-count="10" data-suffix="+"><span class="count-val">0</span><span class="count-suffix">+</span></div><div class="hms-label"><span class="hms-label-line">Professional</span><span class="hms-label-line">Experience</span></div></div>
+        <div class="hms"><div class="hms-num" data-count="4"><span class="count-val">0</span></div><div class="hms-label"><span class="hms-label-line">Continents</span><span class="hms-label-line">Reached</span></div></div>
       </div>
     </div>
   </div>
@@ -972,43 +1069,19 @@ footer a:hover{color:var(--lime);}
 <section class="about-section" id="about" style="background:var(--bg2);">
   <div class="s-tag">About</div>
   <h2 class="s-title reveal reveal-blur">What I <em>Bring</em></h2>
-  <p class="s-sub reveal" style="max-width:680px;">Commercially focused Sales &amp; Marketing professional with <strong style="color:var(--text);">10+ years of combined experience</strong> across business development, B2B/B2C sales, international client work and digital marketing. Experienced in client acquisition, key accounts, lead generation, CRM, campaign strategy, paid media, content, analytics and performance optimization.</p>
+  <p class="s-sub reveal" style="max-width:760px;">Commercially focused Sales &amp; Marketing professional with <strong style="color:var(--text);">10+ years of experience</strong> across business development, B2B/B2C sales, key account management and digital marketing. Proven experience in client acquisition, pipeline development, market expansion, campaign strategy and international client management across UAE, UK and global markets.</p>
   <div class="bring-grid">
     <div class="bring-card reveal">
       <div class="bring-icon lime ic-growth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div>
       <div class="bring-label">Sales &amp; Commercial Growth</div>
-      <div class="bring-desc">Revenue &bull; Pipeline &bull; Growth</div>
+      <div class="bring-desc">Revenue &bull; Pipeline &bull; Negotiation</div>
       <div class="bring-motif motif-growth"><svg viewBox="0 0 100 100"><path d="M5 85 Q30 70 45 55 T95 15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle class="pt" cx="20" cy="78" r="3" fill="currentColor"/><circle class="pt" cx="50" cy="52" r="3" fill="currentColor"/><circle class="pt" cx="80" cy="25" r="3" fill="currentColor"/></svg></div>
     </div>
     <div class="bring-card reveal">
       <div class="bring-icon violet ic-handshake"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l3.5-3.5a2 2 0 0 1 2.8 0L11 9"/><path d="M21 11l-3.5-3.5a2 2 0 0 0-2.8 0L13 9"/><path d="M9 9l2 2.5c.5.6 1.5.6 2 0L15 9"/><path d="M6 12l3 3.5c.6.7 1.6.7 2.2 0"/><path d="M18 12l-3 3.5c-.6.7-1.6.7-2.2 0"/></svg></div>
       <div class="bring-label">Business Development</div>
-      <div class="bring-desc">Prospecting &bull; Partnerships &bull; Opportunities</div>
+      <div class="bring-desc">Prospecting &bull; Partnerships &bull; Market Expansion</div>
       <div class="bring-motif motif-connect"><svg viewBox="0 0 100 100"><circle cx="15" cy="35" r="4" fill="currentColor"/><circle cx="15" cy="65" r="4" fill="currentColor"/><circle cx="85" cy="35" r="4" fill="currentColor"/><circle cx="85" cy="65" r="4" fill="currentColor"/><line class="connect-line" x1="19" y1="50" x2="81" y2="50" stroke="currentColor" stroke-width="2"/></svg></div>
-    </div>
-    <div class="bring-card reveal">
-      <div class="bring-icon cyan ic-target"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></div>
-      <div class="bring-label">Client Acquisition</div>
-      <div class="bring-desc">Lead Generation &bull; Conversion &bull; CRM</div>
-      <div class="bring-motif motif-target-lead"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="12" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="50" r="26" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2"/><circle class="lead-dot" cx="90" cy="50" r="4" fill="currentColor"/></svg></div>
-    </div>
-    <div class="bring-card reveal">
-      <div class="bring-icon violet ic-users"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div class="bring-label">B2B/B2C Sales</div>
-      <div class="bring-desc">Prospecting &bull; Meetings &bull; Closing</div>
-      <div class="bring-motif motif-converge"><svg viewBox="0 0 100 100"><circle cx="15" cy="30" r="4" fill="currentColor" class="grpL"/><circle cx="20" cy="55" r="4" fill="currentColor" class="grpL"/><circle cx="85" cy="30" r="4" fill="currentColor" class="grpR"/><circle cx="80" cy="55" r="4" fill="currentColor" class="grpR"/><circle cx="50" cy="42" r="5" fill="none" stroke="currentColor" stroke-width="2" class="meet"/></svg></div>
-    </div>
-    <div class="bring-card reveal">
-      <div class="bring-icon lime ic-compass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15 9 12.5 12.5 9 15 11.5 11.5 15 9"/></svg></div>
-      <div class="bring-label">Marketing Strategy</div>
-      <div class="bring-desc">Positioning &bull; Campaigns &bull; GTM</div>
-      <div class="bring-motif motif-path"><svg viewBox="0 0 100 100"><path class="strategy-path" d="M10 80 L35 55 L60 65 L90 20" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="80" r="3.5" fill="currentColor"/><circle cx="35" cy="55" r="3.5" fill="currentColor"/><circle cx="60" cy="65" r="3.5" fill="currentColor"/><circle cx="90" cy="20" r="3.5" fill="currentColor"/></svg></div>
-    </div>
-    <div class="bring-card reveal">
-      <div class="bring-icon violet ic-globe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg></div>
-      <div class="bring-label">Market Expansion</div>
-      <div class="bring-desc">New Markets &bull; Partnerships &bull; Growth</div>
-      <div class="bring-motif motif-route"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="50" cy="50" rx="14" ry="35" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="15" y1="50" x2="85" y2="50" stroke="currentColor" stroke-width="1.4"/><path class="route-path" d="M30 35 Q50 15 70 35" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="35" r="2.5" fill="currentColor"/><circle cx="70" cy="35" r="2.5" fill="currentColor"/></svg></div>
     </div>
     <div class="bring-card reveal">
       <div class="bring-icon cyan ic-briefcase"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
@@ -1017,26 +1090,26 @@ footer a:hover{color:var(--lime);}
       <div class="bring-motif motif-key-account"><svg viewBox="0 0 100 100"><line x1="50" y1="50" x2="20" y2="25" stroke="currentColor" stroke-width="1.6" opacity="0.6"/><line x1="50" y1="50" x2="80" y2="25" stroke="currentColor" stroke-width="1.6" opacity="0.6"/><line x1="50" y1="50" x2="25" y2="80" stroke="currentColor" stroke-width="1.6" opacity="0.6"/><line x1="50" y1="50" x2="80" y2="78" stroke="currentColor" stroke-width="1.6" opacity="0.6"/><circle cx="20" cy="25" r="3" fill="currentColor" opacity="0.6"/><circle cx="80" cy="25" r="3" fill="currentColor" opacity="0.6"/><circle cx="25" cy="80" r="3" fill="currentColor" opacity="0.6"/><circle cx="80" cy="78" r="3" fill="currentColor" opacity="0.6"/><circle class="primary-acct" cx="50" cy="50" r="6" fill="currentColor"/></svg></div>
     </div>
     <div class="bring-card reveal">
-      <div class="bring-icon amber ic-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><line x1="8" y1="11" x2="16" y2="7"/><line x1="8" y1="13" x2="16" y2="17"/></svg></div>
-      <div class="bring-label">Social Media Strategy</div>
-      <div class="bring-desc">Content &bull; Community &bull; Growth</div>
-      <div class="bring-motif motif-distribute"><svg viewBox="0 0 100 100"><line class="branch" x1="20" y1="50" x2="45" y2="20" stroke="currentColor" stroke-width="1.6"/><line class="branch" x1="20" y1="50" x2="45" y2="80" stroke="currentColor" stroke-width="1.6"/><line class="branch" x1="20" y1="50" x2="80" y2="30" stroke="currentColor" stroke-width="1.6"/><line class="branch" x1="20" y1="50" x2="80" y2="70" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="50" r="5" fill="currentColor"/><circle cx="45" cy="20" r="3" fill="currentColor"/><circle cx="45" cy="80" r="3" fill="currentColor"/><circle cx="80" cy="30" r="3" fill="currentColor"/><circle cx="80" cy="70" r="3" fill="currentColor"/></svg></div>
+      <div class="bring-icon lime ic-compass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="15 9 12.5 12.5 9 15 11.5 11.5 15 9"/></svg></div>
+      <div class="bring-label">Marketing Strategy</div>
+      <div class="bring-desc">Positioning &bull; GTM &bull; Campaign Strategy</div>
+      <div class="bring-motif motif-path"><svg viewBox="0 0 100 100"><path class="strategy-path" d="M10 80 L35 55 L60 65 L90 20" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="80" r="3.5" fill="currentColor"/><circle cx="35" cy="55" r="3.5" fill="currentColor"/><circle cx="60" cy="65" r="3.5" fill="currentColor"/><circle cx="90" cy="20" r="3.5" fill="currentColor"/></svg></div>
     </div>
     <div class="bring-card reveal">
       <div class="bring-icon lime ic-megaphone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></div>
-      <div class="bring-label">Digital Marketing &amp; Paid Advertising</div>
-      <div class="bring-desc">Paid Media &bull; Targeting &bull; Optimization</div>
+      <div class="bring-label">Digital Marketing &amp; Paid Media</div>
+      <div class="bring-desc">Meta &bull; Google &bull; TikTok &bull; LinkedIn</div>
       <div class="bring-motif motif-funnel"><svg viewBox="0 0 100 100"><circle cx="15" cy="50" r="6" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="50" r="5" fill="currentColor" opacity="0.7"/><path d="M78 42l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line class="seg1" x1="22" y1="50" x2="44" y2="50" stroke="currentColor" stroke-width="1.6"/><line class="seg2" x1="56" y1="50" x2="76" y2="50" stroke="currentColor" stroke-width="1.6"/><circle class="pulse-dot" cx="15" cy="50" r="2.5" fill="currentColor"/></svg></div>
     </div>
     <div class="bring-card reveal">
-      <div class="bring-icon violet ic-sparkle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg></div>
-      <div class="bring-label">Content &amp; Creative Execution</div>
-      <div class="bring-desc">Creative &bull; Video &bull; Campaign Content</div>
-      <div class="bring-motif motif-frames"><svg viewBox="0 0 100 100"><rect class="frame" x="10" y="55" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect class="frame" x="45" y="40" width="28" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect class="frame" x="65" y="65" width="24" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path class="spark" d="M78 18l2.4 6.6L87 27l-6.6 2.4L78 36l-2.4-6.6L69 27l6.6-2.4L78 18z" fill="currentColor"/></svg></div>
+      <div class="bring-icon amber ic-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><line x1="8" y1="11" x2="16" y2="7"/><line x1="8" y1="13" x2="16" y2="17"/></svg></div>
+      <div class="bring-label">Social Media &amp; Content Strategy</div>
+      <div class="bring-desc">Content &bull; Community &bull; Audience Growth</div>
+      <div class="bring-motif motif-distribute"><svg viewBox="0 0 100 100"><line class="branch" x1="20" y1="50" x2="45" y2="20" stroke="currentColor" stroke-width="1.6"/><line class="branch" x1="20" y1="50" x2="45" y2="80" stroke="currentColor" stroke-width="1.6"/><line class="branch" x1="20" y1="50" x2="80" y2="30" stroke="currentColor" stroke-width="1.6"/><line class="branch" x1="20" y1="50" x2="80" y2="70" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="50" r="5" fill="currentColor"/><circle cx="45" cy="20" r="3" fill="currentColor"/><circle cx="45" cy="80" r="3" fill="currentColor"/><circle cx="80" cy="30" r="3" fill="currentColor"/><circle cx="80" cy="70" r="3" fill="currentColor"/></svg></div>
     </div>
     <div class="bring-card reveal">
       <div class="bring-icon cyan ic-bars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
-      <div class="bring-label">Analytics &amp; Performance Optimization</div>
+      <div class="bring-label">Analytics &amp; Performance</div>
       <div class="bring-desc">KPIs &bull; Insights &bull; Optimization</div>
       <div class="bring-motif motif-databars"><svg viewBox="0 0 100 100"><rect x="15" y="60" width="12" height="30" fill="currentColor" opacity="0.7"/><rect x="38" y="45" width="12" height="45" fill="currentColor" opacity="0.7"/><rect x="61" y="25" width="12" height="65" fill="currentColor" opacity="0.7"/><rect x="84" y="10" width="12" height="80" fill="currentColor" opacity="0.7"/><polyline class="trend" points="21,60 44,45 67,25 90,10" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
     </div>
@@ -1060,9 +1133,8 @@ footer a:hover{color:var(--lime);}
     <div class="result-card reveal reveal-blur"><div class="rc-num pink"><span class="rc-seg">B2B</span> <span class="rc-seg">&amp;</span> <span class="rc-seg">B2C</span></div><div class="rc-label">Client Portfolio</div></div>
     <div class="result-card reveal reveal-blur"><div class="rc-num cyan" data-count="4" data-suffix="+"><span class="rc-count-val">0</span><span style="font-size:1.8rem">+</span></div><div class="rc-label">Digital Channels Managed</div></div>
     <div class="result-card reveal reveal-blur"><div class="rc-num violet" data-count="15" data-suffix="%"><span class="rc-count-val">0</span><span style="font-size:1.8rem">%</span></div><div class="rc-label">YoY Revenue Growth</div></div>
-    <div class="result-card reveal reveal-blur"><div class="rc-num lime" data-count="56" data-suffix="+"><span class="rc-count-val">0</span><span style="font-size:1.8rem">+</span></div><div class="rc-label">Client Reviews</div></div>
-    <div class="result-card reveal reveal-blur"><div class="rc-num cyan" data-count="4.7" data-decimals="1" data-suffix="★"><span class="rc-count-val">0.0</span><span style="font-size:1.8rem">★</span></div><div class="rc-label">Fiverr Rating</div></div>
-    <div class="result-card reveal reveal-blur"><div class="rc-num pink" data-count="10" data-suffix="+"><span class="rc-count-val">0</span><span style="font-size:1.8rem">+</span></div><div class="rc-label">Years Combined Experience</div></div>
+    <div class="result-card reveal reveal-blur"><div class="rc-num pink" data-count="10" data-suffix="+"><span class="rc-count-val">0</span><span style="font-size:1.8rem">+</span></div><div class="rc-label">Years Experience</div></div>
+    <div class="result-card reveal reveal-blur"><div class="rc-num lime" data-count="4"><span class="rc-count-val">0</span></div><div class="rc-label">Continents</div><div class="rc-sublabel">Global Client Reach</div></div>
   </div>
 </section>
 
@@ -1080,7 +1152,7 @@ footer a:hover{color:var(--lime);}
       <div class="expertise-title">Sales &amp; Growth</div>
       <div class="expertise-desc">B2B/B2C sales, client acquisition, lead generation and pipeline development through to closing and account growth.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">Client Acquisition</span><span class="bc-tag">Lead Generation</span><span class="bc-tag">Pipeline Development</span><span class="bc-tag">Key Account Management</span><span class="bc-tag">Negotiation</span><span class="bc-tag">CRM Management</span><span class="bc-tag">Sales Forecasting</span><span class="bc-tag">Partnerships</span><span class="bc-tag">Client Retention</span><span class="bc-tag">HubSpot</span><span class="bc-tag">Salesforce</span><span class="bc-tag">Zoho CRM</span><span class="bc-tag">Pipedrive</span><span class="bc-tag">Monday.com</span>
+        <span class="bc-tag">Client Acquisition</span><span class="bc-tag">Lead Generation</span><span class="bc-tag">Pipeline Development</span><span class="bc-tag">Key Account Management</span><span class="bc-tag">Negotiation</span><span class="bc-tag">CRM Management</span><span class="bc-tag">Sales Forecasting</span><span class="bc-tag">Partnerships</span><span class="bc-tag">Client Retention</span><span class="bc-tag">HubSpot</span><span class="bc-tag">Salesforce</span><span class="bc-tag">Zoho CRM</span><span class="bc-tag">Pipedrive</span>
       </div>
     </div>
 
@@ -1089,9 +1161,9 @@ footer a:hover{color:var(--lime);}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>
       </div>
       <div class="expertise-title">Marketing Strategy</div>
-      <div class="expertise-desc">Integrated marketing strategy, go-to-market planning and campaign strategy aligned with commercial objectives.</div>
+      <div class="expertise-desc">Integrated marketing strategy, go-to-market planning and campaign execution aligned with commercial objectives.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">GTM Planning</span><span class="bc-tag">Campaign Strategy</span><span class="bc-tag">Brand Positioning</span><span class="bc-tag">Market Research</span><span class="bc-tag">Competitor Research</span><span class="bc-tag">Marketing-Sales Alignment</span><span class="bc-tag">Performance Measurement</span><span class="bc-tag">Google Workspace</span><span class="bc-tag">Microsoft 365</span><span class="bc-tag">WordPress</span><span class="bc-tag">Slack</span><span class="bc-tag">Outlook</span>
+        <span class="bc-tag">GTM Planning</span><span class="bc-tag">Campaign Strategy</span><span class="bc-tag">Brand Positioning</span><span class="bc-tag">Market Research</span><span class="bc-tag">Competitor Analysis</span><span class="bc-tag">Audience Segmentation</span><span class="bc-tag">Lead Generation Strategy</span><span class="bc-tag">Performance Measurement</span><span class="bc-tag">Marketing-Sales Alignment</span>
       </div>
     </div>
 
@@ -1113,7 +1185,7 @@ footer a:hover{color:var(--lime);}
       <div class="expertise-title">Creative Production &amp; AI</div>
       <div class="expertise-desc">AI-assisted video/image production and creative execution across the Adobe suite and generative AI tools.</div>
       <div class="expertise-tags">
-        <span class="bc-tag">Premiere Pro</span><span class="bc-tag">Photoshop</span><span class="bc-tag">After Effects</span><span class="bc-tag">Canva</span><span class="bc-tag">CapCut Pro</span><span class="bc-tag">AI-Assisted Video Production</span><span class="bc-tag">Illustrator</span><span class="bc-tag">InDesign</span><span class="bc-tag">Google Flow / Veo</span><span class="bc-tag">Kling AI</span><span class="bc-tag">Runway ML</span><span class="bc-tag">Google ImageFX</span><span class="bc-tag">Ideogram.ai</span><span class="bc-tag">ChatGPT</span><span class="bc-tag">Claude AI</span>
+        <span class="bc-tag">Premiere Pro</span><span class="bc-tag">Photoshop</span><span class="bc-tag">After Effects</span><span class="bc-tag">Canva</span><span class="bc-tag">CapCut Pro</span><span class="bc-tag">Google Flow / Veo</span><span class="bc-tag">Kling AI</span><span class="bc-tag">Runway ML</span><span class="bc-tag">ChatGPT</span>
       </div>
     </div>
 
@@ -1166,7 +1238,7 @@ footer a:hover{color:var(--lime);}
   <div class="exp-bg-glow"></div>
   <div class="s-tag">Career Timeline</div>
   <h2 class="s-title reveal reveal-blur">Professional <em>Experience</em></h2>
-  <p class="s-sub reveal">A career spanning B2B sales, business development, account management and digital marketing across UAE, UK and international markets.</p>
+  <p class="s-sub reveal">10+ years across B2B/B2C sales, business development, key account management and digital marketing in UAE, UK and international markets.</p>
   <div class="exp-timeline">
     <div class="exp-item">
       <div class="exp-year">2024</div>
@@ -1175,7 +1247,7 @@ footer a:hover{color:var(--lime);}
         <div class="exp-role reveal">B2B Sales &amp; Marketing Manager</div>
         <div class="exp-company reveal">FPV Magic Electronic Trading LLC</div>
         <div class="exp-meta reveal">Dubai, UAE &middot; 05/2024 &ndash; Present</div>
-        <p class="exp-desc reveal">Led integrated B2B sales and marketing across prospecting, reseller and trade-partner development, client meetings, product demonstrations, proposals and digital initiatives. Tracked pipeline and campaign performance to support brand visibility and revenue growth.</p>
+        <p class="exp-desc reveal">Drive integrated B2B sales and marketing across prospecting, reseller partnerships, client presentations and digital initiatives, contributing to 15% YoY revenue growth. Manage pipeline development and campaign performance to strengthen market visibility and commercial growth.</p>
         <div class="exp-tags reveal"><span class="exp-tag">B2B Sales</span><span class="exp-tag">Business Development</span><span class="exp-tag">Pipeline Management</span><span class="exp-tag">Digital Marketing</span></div>
       </div>
     </div>
@@ -1186,7 +1258,7 @@ footer a:hover{color:var(--lime);}
         <div class="exp-role reveal">Key Account Manager (Remote)</div>
         <div class="exp-company reveal">Smart Advertisement</div>
         <div class="exp-meta reveal">United Kingdom &middot; 07/2021 &ndash; 03/2024</div>
-        <p class="exp-desc reveal">Enterprise client/account management, marketing strategy, client briefings &amp; presentations, account growth, upselling, campaign coordination, creative/media/analytics collaboration, performance targets &amp; budgets.</p>
+        <p class="exp-desc reveal">Managed enterprise client accounts across marketing strategy, campaign delivery and commercial growth. Led client briefings and performance reviews while identifying upsell and account-expansion opportunities to strengthen long-term relationships and client value.</p>
         <div class="exp-tags reveal"><span class="exp-tag">Key Account Management</span><span class="exp-tag">Account Growth</span><span class="exp-tag">Marketing Strategy</span><span class="exp-tag">Client Relations</span></div>
       </div>
     </div>
@@ -1197,7 +1269,7 @@ footer a:hover{color:var(--lime);}
         <div class="exp-role reveal">B2B Sales &amp; Marketing Executive</div>
         <div class="exp-company reveal">Ahmad Developers &amp; Builders</div>
         <div class="exp-meta reveal">Pakistan &middot; 07/2019 &ndash; 06/2021</div>
-        <p class="exp-desc reveal">B2B prospecting, lead generation, client meetings, proposal development, digital marketing for property launches, market/competitor analysis, go-to-market positioning, prospect follow-up, negotiation support, real estate marketing.</p>
+        <p class="exp-desc reveal">Supported B2B sales and marketing through prospecting, lead generation, client meetings, digital campaigns and proposal development for residential and commercial opportunities. Conducted market analysis and structured follow-up to support positioning, negotiations and pipeline progression.</p>
         <div class="exp-tags reveal"><span class="exp-tag">Lead Generation</span><span class="exp-tag">Digital Marketing</span><span class="exp-tag">Market Analysis</span><span class="exp-tag">Negotiation</span></div>
       </div>
     </div>
@@ -1205,11 +1277,11 @@ footer a:hover{color:var(--lime);}
       <div class="exp-year">2016</div>
       <div class="exp-marker"></div>
       <div class="exp-card reveal reveal-blur">
-        <div class="exp-role reveal">International Freelance Projects / Fiverr</div>
+        <div class="exp-role reveal">International Marketing &amp; Business Growth Projects</div>
         <div class="exp-company reveal">Remote / Global</div>
         <div class="exp-meta reveal">02/2016 &ndash; 06/2024</div>
-        <p class="exp-desc reveal">50+ international B2B/B2C clients, international client relationships, marketing/customer acquisition strategy, digital campaigns, social media, content/creative production, paid media, repeat/referral business, Fiverr client reviews.</p>
-        <div class="exp-tags reveal"><span class="exp-tag">International Clients</span><span class="exp-tag">Client Acquisition</span><span class="exp-tag">Social Media</span><span class="exp-tag">Paid Media</span></div>
+        <p class="exp-desc reveal">Worked with 50+ international B2B/B2C clients across four continents, delivering digital marketing, client acquisition, paid media, content and growth initiatives. Built long-term client relationships and generated repeat and referral business through consistent delivery and measurable results.</p>
+        <div class="exp-tags reveal"><span class="exp-tag">International Clients</span><span class="exp-tag">Client Acquisition</span><span class="exp-tag">Digital Marketing</span><span class="exp-tag">Paid Media</span></div>
       </div>
     </div>
   </div>
@@ -1282,8 +1354,7 @@ footer a:hover{color:var(--lime);}
           <div class="licence-shine"></div>
         </div>
         <div>
-          <div class="licence-name">UAE Driving Licence</div>
-          <div class="licence-sub">Valid until October 2026</div>
+          <div class="licence-name">UAE Valid Driving Licence</div>
         </div>
       </div>
     </div>
@@ -1292,18 +1363,17 @@ footer a:hover{color:var(--lime);}
 
 <!-- REVIEWS -->
 <section class="reviews-section" id="reviews">
-  <div class="s-tag">Client Testimonials</div>
-  <h2 class="s-title reveal reveal-blur">What International <em>Clients Say</em></h2>
-  <div class="credibility-line reveal">4.7★ Client Rating &bull; 56+ Verified Reviews</div>
+  <div class="s-tag">Client Success Stories</div>
+  <h2 class="s-title reveal reveal-blur">Trusted by <em>Clients Across Global Markets</em></h2>
+  <div class="credibility-line reveal">50+ International Clients &bull; 4 Continents &bull; Repeat Business</div>
   <p class="s-sub reveal">Feedback from clients across the US, UK, Australia, Europe and Asia.</p>
   <div class="reviews-grid reveal">
     <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Amazing work, very friendly and gets to the point. This gentleman knows which direction to point you and has great talent — you can't go wrong. Thank you again Sunny.</p><div class="review-author"><div class="review-av" style="background:var(--lime);">K</div><div><div class="review-name">khalilsood</div><div class="review-loc">🇺🇸 United States · Repeat Client</div></div></div></div>
     <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Excellent and great to work with. Will definitely use these services again. Fast, professional and delivered exactly what I needed on time.</p><div class="review-author"><div class="review-av" style="background:var(--cyan);color:#000;">C</div><div><div class="review-name">carolinmac13</div><div class="review-loc">🇦🇺 Australia</div></div></div></div>
-    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">The best person on Fiverr. Great communication, amazing work, always fast. Wonderful as always — repeat business, always a great product.</p><div class="review-author"><div class="review-av" style="background:var(--violet);">E</div><div><div class="review-name">evosza</div><div class="review-loc">🇺🇸 United States · Repeat Client</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Brilliant — once he got it right it was perfect and on the ball. Very responsive and professional throughout the entire project.</p><div class="review-author"><div class="review-av" style="background:#1d4ed8;">S</div><div><div class="review-name">samfindlay</div><div class="review-loc">🇬🇧 United Kingdom</div></div></div></div>
   </div>
   <div class="reviews-extra-wrap" id="reviewsExtraWrap">
     <div class="reviews-grid" id="reviewsExtra" style="margin-top:1.25rem;">
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Brilliant — once he got it right it was perfect and on the ball. Very responsive and professional throughout the entire project.</p><div class="review-author"><div class="review-av" style="background:#1d4ed8;">S</div><div><div class="review-name">samfindlay</div><div class="review-loc">🇬🇧 United Kingdom</div></div></div></div>
       <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Amazing Seller, works very fast and always happy to help — A+++. One of the fastest Sellers I've worked with. Highly recommended!</p><div class="review-author"><div class="review-av" style="background:#059669;">W</div><div><div class="review-name">website_mods</div><div class="review-loc">🇦🇺 Australia · Repeat Client</div></div></div></div>
       <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">Smooth and easy. The edits are fresh and modern. Very responsive and delivered ahead of schedule — will work again.</p><div class="review-author"><div class="review-av" style="background:var(--pink);color:#000;">R</div><div><div class="review-name">radmilam</div><div class="review-loc">🇳🇴 Norway</div></div></div></div>
       <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">So professional, perfect communication. Easy to speak with him! So understanding — would definitely love to work with him again.</p><div class="review-author"><div class="review-av" style="background:var(--amber);color:#000;">A</div><div><div class="review-name">ahmedehab179</div><div class="review-loc">🇭🇺 Hungary</div></div></div></div>
@@ -1312,7 +1382,7 @@ footer a:hover{color:var(--lime);}
     </div>
   </div>
   <div style="text-align:center;margin-top:2rem;">
-    <button type="button" class="btn-ghost" id="viewMoreReviewsBtn" onclick="toggleReviews()">View More Client Reviews ↓</button>
+    <button type="button" class="btn-ghost" id="viewMoreReviewsBtn" onclick="toggleReviews()">View More Client Stories ↓</button>
   </div>
 </section>
 
@@ -1338,8 +1408,8 @@ footer a:hover{color:var(--lime);}
       <div class="cv-feature-title cv-feature-title-first reveal">Sales &amp; Marketing Manager CV</div>
       <div class="cv-feature-sub reveal">B2B/B2C Growth &bull; Performance Marketing &bull; Business Development</div>
       <div class="cv-feature-actions">
-        <a class="btn-lime cv-dl-btn reveal" href="Awais_Shahid_Sales_Marketing_Manager.pdf" download>Download Sales &amp; Marketing Manager CV <span class="cv-arrow">&rarr;</span></a>
-        <a class="cv-view-link reveal" href="Awais_Shahid_Sales_Marketing_Manager.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg> View CV</a>
+        <a class="btn-lime cv-dl-btn reveal" href="./Awais%20-%20Sales%20Marketing%20Manager.pdf" download>Download Sales &amp; Marketing Manager CV <span class="cv-arrow">&rarr;</span></a>
+        <a class="cv-view-link reveal" href="./Awais%20-%20Sales%20Marketing%20Manager.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg> View CV</a>
       </div>
     </div>
   </div>
@@ -1354,14 +1424,16 @@ footer a:hover{color:var(--lime);}
     <div class="path-card">
       <div class="path-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
       <div class="path-title">Career Opportunities</div>
-      <div class="path-desc">For Sales &amp; Marketing, Business Development, Digital Marketing and related professional roles.</div>
-      <a href="mailto:awaisshahidpk@gmail.com?subject=Career%20Opportunity" class="btn-lime path-cta">Discuss an Opportunity &rarr;</a>
+      <div class="path-desc">For Sales &amp; Marketing, Business Development, Digital Marketing and related leadership roles.</div>
+      <div class="path-status">Dubai, UAE &bull; Employment Visa &bull; UAE Valid Driving Licence &bull; Available Immediately</div>
+      <a href="mailto:awaisshahidpk@gmail.com?subject=Career%20Opportunity" class="btn-lime path-cta">Discuss a Career Opportunity &rarr;</a>
     </div>
     <div class="path-card">
       <div class="path-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z"/></svg></div>
-      <div class="path-title">Projects &amp; Freelance</div>
-      <div class="path-desc">For selected marketing, digital growth, campaign, content and business development projects.</div>
-      <a href="mailto:awaisshahidpk@gmail.com?subject=Project%20Inquiry" class="btn-ghost path-cta">Discuss a Project &rarr;</a>
+      <div class="path-title">Consulting &amp; Projects</div>
+      <div class="path-desc">Available for selected marketing, digital growth, campaign, content and business development projects.</div>
+      <div class="path-tags"><span class="exp-tag">Digital Growth</span><span class="exp-tag">Business Development</span></div>
+      <a href="mailto:awaisshahidpk@gmail.com?subject=Project%20Inquiry" class="btn-ghost path-cta path-cta-secondary">Discuss a Project <span class="path-cta-arrow">&rarr;</span></a>
     </div>
   </div>
   <div class="contact-cards reveal">
@@ -1387,11 +1459,11 @@ footer a:hover{color:var(--lime);}
       <div class="cc-label">LinkedIn</div>
       <div class="cc-val">Awais Shahid</div>
     </a>
-    <a class="contact-card cc-violet" href="https://www.fiverr.com/sunny_pro" target="_blank" rel="noopener">
-      <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a13 13 0 0 1 0 18a13 13 0 0 1 0-18z"/></svg></span>
-      <div class="cc-label">Portfolio</div>
-      <div class="cc-val">View Portfolio &rarr;</div>
-    </a>
+    <div class="contact-card cc-violet">
+      <span class="cc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg></span>
+      <div class="cc-label">Availability</div>
+      <div class="cc-val">Available Immediately</div>
+    </div>
   </div>
 </section>
 
@@ -1507,6 +1579,34 @@ footer a:hover{color:var(--lime);}
     });
   }, { threshold: 0.2 });
   observer.observe(grid);
+})();
+
+// EXPERIENCE — timeline node activation as visitor scrolls through career history
+(function() {
+  var items = document.querySelectorAll('.exp-item');
+  if (!items.length) return;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+  var current = null;
+  var nodeObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      var item = entry.target;
+      if (entry.isIntersecting) {
+        if (current && current !== item) {
+          current.classList.remove('tl-active', 'tl-pulse');
+        }
+        if (!item.classList.contains('tl-active')) {
+          item.classList.add('tl-active', 'tl-pulse');
+          setTimeout(function() { item.classList.remove('tl-pulse'); }, 1000);
+        }
+        current = item;
+      } else if (item === current) {
+        item.classList.remove('tl-active', 'tl-pulse');
+        current = null;
+      }
+    });
+  }, { threshold: 0.5 });
+  items.forEach(function(item) { nodeObserver.observe(item); });
 })();
 
 // EXPERIENCE — timeline line draws once on entry
@@ -1636,7 +1736,7 @@ function toggleReviews() {
   if (!wrap || !btn) return;
   var isExpanding = !wrap.classList.contains('expanded');
   wrap.classList.toggle('expanded');
-  btn.textContent = isExpanding ? 'Show Fewer Reviews ↑' : 'View More Client Reviews ↓';
+  btn.textContent = isExpanding ? 'Show Fewer Stories ↑' : 'View More Client Stories ↓';
 }
 
 // MOBILE NAV TOGGLE
@@ -1875,6 +1975,10 @@ function toggleReviews() {
     });
   }
 })();
+
+// (Four Ways I Drive Growth: automatic card-wave cycling removed — cards are static, hover-only)
+
+// (Consulting & Projects tags: automatic cycling removed — tags are static, hover-only)
 
 // CV CARD DATA-FLOW — pause decorative animation when off-screen
 (function() {
